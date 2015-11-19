@@ -1,0 +1,74 @@
+/*
+ * Plugins
+ */
+apply plugin: 'eclipse'
+
+
+
+
+/*
+ * Configuration
+ */
+description = 'NIREST'
+
+
+
+
+/*
+ * Projects
+ */
+allprojects {
+	
+	
+	/*
+	 * Configuration
+	 */
+	version = '0.1.0-SNAPSHOT'
+	
+}
+
+
+
+
+/*
+ * Subprojects
+ */
+subprojects {
+	
+	
+	/*
+	 * Plugins
+	 */
+	apply plugin: 'eclipse'
+	apply plugin: 'java'
+	
+	
+	/*
+	 * Repositories
+	 */
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	
+	
+	/*
+	 * Dependencies
+	 */
+	dependencies {
+		
+		
+		/*
+		 * Compile Dependencies
+		 */
+		
+		
+		/*
+		 * Test Dependencies
+		 */
+		
+		
+	}
+	
+	
+}

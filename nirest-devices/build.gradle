@@ -1,0 +1,32 @@
+/*
+ * Plugins
+ */
+
+
+
+
+/*
+ * Configuration
+ */
+description = 'NIREST Devices'
+
+
+
+
+/*
+ * Dependencies
+ */
+dependencies {
+	
+	
+	/*
+	 * Compile Dependencies
+	 */
+	
+	
+	/*
+	 * Test Dependencies
+	 */
+	
+	
+}

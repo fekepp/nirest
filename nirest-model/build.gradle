@@ -1,0 +1,32 @@
+/*
+ * Plugins
+ */
+
+
+
+
+/*
+ * Configuration
+ */
+description = 'NIREST Model'
+
+
+
+
+/*
+ * Dependencies
+ */
+dependencies {
+	
+	
+	/*
+	 * Compile Dependencies
+	 */
+	
+	
+	/*
+	 * Test Dependencies
+	 */
+	
+	
+}

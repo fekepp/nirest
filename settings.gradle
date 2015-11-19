@@ -1,0 +1,3 @@
+include 'nirest-devices'
+include 'nirest-model'
+include 'nirest-server'
