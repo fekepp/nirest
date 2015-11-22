@@ -1,3 +1,3 @@
-include 'nirest-devices'
+include 'nirest-device'
 include 'nirest-model'
 include 'nirest-server'
