@@ -1,6 +1,10 @@
 /*
  * Plugins
  */
+plugins {
+	id 'application'
+	//id 'org.akhikhl.gretty' version '1.2.4'
+}
 
 
 
@@ -8,7 +12,19 @@
 /*
  * Configuration
  */
+ 
+// General
 description = 'NIREST Server'
+
+// Applications plugin
+mainClassName = 'net.fekepp.nirest.webapp.Main'
+
+jar {
+	manifest {
+		attributes	'Implementation-Title': 'NIREST Server',
+					'Implementation-Version': version
+	}
+}
 
 
 
@@ -23,10 +39,52 @@ dependencies {
 	 * Compile Dependencies
 	 */
 	
+	//
+	// Internal
+	//
+	
+	// NIREST
+	compile project(':nirest-device')
+	
+	
+	//
+	// External
+	//
+	
+	// Jersey
+	compile 'org.glassfish.jersey.containers:jersey-container-jetty-servlet:2.+'
+	
+	// Jetty (include dependencies of Jersey with newer versions)
+	compile 'org.eclipse.jetty:jetty-webapp:9.+'
+	compile 'org.eclipse.jetty:jetty-continuation:9.+'
+	
+	// Jetty (additional dependencies)
+	compile 'org.eclipse.jetty:jetty-annotations:9.+'
+	compile 'org.eclipse.jetty:apache-jsp:9.+'
+	
+	
+	//
+	// Local
+	//
+	
 	
 	/*
 	 * Test Dependencies
 	 */
+	
+	//
+	// Internal
+	//
+	
+	
+	//
+	// External
+	//
+	
+	
+	//
+	// Local
+	//
 	
 	
 }

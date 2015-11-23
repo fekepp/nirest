@@ -1,6 +1,9 @@
 /*
  * Plugins
  */
+plugins {
+	id 'application'
+}
 
 
 
@@ -8,7 +11,19 @@
 /*
  * Configuration
  */
+
+// General
 description = 'NIREST Devices'
+
+// Applications plugin
+mainClassName = 'net.fekepp.nirest.device.Main'
+
+jar {
+	manifest {
+		attributes	'Implementation-Title': 'NIREST Devices',
+					'Implementation-Version': version
+	}
+}
 
 
 
@@ -23,10 +38,45 @@ dependencies {
 	 * Compile Dependencies
 	 */
 	
+	//
+	// Internal
+	//
+	compile project(':nirest-model')
+	
+	
+	//
+	// External
+	//
+	
+	
+	//
+	// Local
+	//
+	
+	// OpenNI/NiTE
+	compile files(
+		'../redistributables/OpenNI-Linux-x64-2.2.0.33/org.openni.jar',
+		'../redistributables/NiTE-Linux-x64-2.2.0.11/com.primesense.nite.jar',
+	)
+	
 	
 	/*
 	 * Test Dependencies
 	 */
+	
+	//
+	// Internal
+	//
+	
+	
+	//
+	// External
+	//
+	
+	
+	//
+	// Local
+	//
 	
 	
 }

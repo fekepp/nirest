@@ -1,7 +1,9 @@
 /*
  * Plugins
  */
-apply plugin: 'eclipse'
+plugins {
+	id 'eclipse'
+}
 
 
 
@@ -25,6 +27,7 @@ allprojects {
 	 */
 	version = '0.1.0-SNAPSHOT'
 	
+	
 }
 
 
@@ -39,8 +42,10 @@ subprojects {
 	/*
 	 * Plugins
 	 */
-	apply plugin: 'eclipse'
-	apply plugin: 'java'
+	plugins {
+		id 'eclipse'
+		id 'java'
+	}
 	
 	
 	/*
@@ -49,6 +54,9 @@ subprojects {
 	repositories {
 		mavenLocal()
 		mavenCentral()
+		flatDir {
+			dirs 'libraries'
+		}
 	}
 	
 	
@@ -62,10 +70,52 @@ subprojects {
 		 * Compile Dependencies
 		 */
 		
+		//
+		// Internal
+		//
+		
+		
+		//
+		// External
+		//
+		
+		// SLF4J
+		compile 'org.slf4j:slf4j-api:1.7.+'
+		compile 'org.slf4j:log4j-over-slf4j:1.7.+'
+		compile 'org.slf4j:jcl-over-slf4j:1.7.+'
+		compile('ch.qos.logback:logback-classic:1.1.+')
+		
+		// Common
+		compile 'commons-io:commons-io:2.4'
+		compile 'com.google.guava:guava:15.0'
+		compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4'
+		
+		
+		//
+		// Local
+		//
+		
 		
 		/*
 		 * Test Dependencies
 		 */
+		
+		//
+		// Internal
+		//
+		
+		
+		//
+		// External
+		//
+		
+		// JUnit
+		testCompile 'junit:junit:4.+'
+		
+		
+		//
+		// Local
+		//
 		
 		
 	}
