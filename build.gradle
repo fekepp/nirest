@@ -42,10 +42,8 @@ subprojects {
 	/*
 	 * Plugins
 	 */
-	plugins {
-		id 'eclipse'
-		id 'java'
-	}
+	apply plugin: 'eclipse'
+	apply plugin: 'java'
 	
 	
 	/*
