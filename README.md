@@ -1,2 +1,2 @@
-NIREST
+Natural Interaction via REST (NIREST)
 ======
