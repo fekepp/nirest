@@ -14,6 +14,9 @@ import com.primesense.nite.UserTrackerFrameRef;
 
 import net.fekepp.nirest.model.User;
 
+/**
+ * @author "Felix Leif Keppmann"
+ */
 public class UserTrackerListener implements NewFrameListener {
 
 	private Map<String, User> users;
