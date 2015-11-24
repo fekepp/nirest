@@ -4,6 +4,7 @@ Natural Interaction via REST (NIREST)
 NIREST utilized [OpenKinect libfreenect](https://github.com/OpenKinect/libfreenect/).
 
 ## Requirements
+
 ### Hardware
 * Connected Microsoft Kinect v1
 
@@ -28,6 +29,7 @@ Pull/run the docker image and start a Bash session.
     ./docker-run-nirest-shell.sh
 
 ### Manually
+
 #### Pull image
 Pull the latest docker image.
 
