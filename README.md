@@ -3,6 +3,10 @@ Natural Interaction via REST (NIREST)
 ## About
 NIREST utilized [OpenKinect libfreenect](https://github.com/OpenKinect/libfreenect/).
 
+## Requirements
+### Hardware
+* Connected Microsoft Kinect v1
+
 ## Docker
 Docker images for NIREST are automatically build.
 * Based on an Ubuntu image.
