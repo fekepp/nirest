@@ -6,14 +6,9 @@ FROM	ubuntu:trusty
 MAINTAINER "Dmitri Rubinstein <dmitri.rubinstein@dfki.de> / Felix Leif Keppmann <felix.leif.keppmann@kit.edu>"
 
 
-# Ubuntu: update and upgrade
-RUN	apt-get update && \
-	apt-get upgrade -y
-
-
 # Ubuntu: install software properties common required to add custom repositories
 RUN	apt-get install -y \
-		software-properties-common
+	software-properties-common
 
 
 # Ubuntu: add repository with recent Oracle Java packages
@@ -31,7 +26,8 @@ RUN	apt-get update && \
 
 
 # Ubuntu: install required packages
-RUN	apt-get install -y \
+RUN	apt-get update && \
+	apt-get install -y \
 		git \
 		curl make \
 		cmake gcc g++ \
@@ -87,7 +83,7 @@ RUN	echo "[Log]" > nirest-server/OpenNI.ini && \
 	echo "LogToFile=0" >> nirest-server/OpenNI.ini
 
 
-# NIREST: configure NiTe for NIREST Server (see redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini)
+# NIREST: configure NiTE for NIREST Server (see redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini)
 RUN	echo "[General]" > nirest-server/NiTE.ini && \
 	echo "DataDir=../redistributables/NiTE-Linux-x64-2.2.0.11/NiTE2" >> nirest-server/NiTE.ini && \
 	echo "" >> nirest-server/NiTE.ini && \
