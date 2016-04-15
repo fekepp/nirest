@@ -1,0 +1,1 @@
+This directory includes binaries of the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreenect/tree/master/OpenNI2-FreenectDriver) from [libfreenect](https://github.com/OpenKinect/libfreenect/) of the [OpenKinect Project](http://www.openkinect.org) under the terms of the [Apache 2.0](LICENSE) license.
