@@ -5,7 +5,5 @@
 /gradle-app.setting
 bin
 build
-nirest-server/NiTE.ini
-nirest-server/OpenNI.ini
-nirest-device/NiTE.ini
-nirest-device/OpenNI.ini
+NiTE.ini
+OpenNI.ini
