@@ -1,4 +1,4 @@
-package net.fekepp.nirest.webapp.servlets;
+package net.fekepp.nirest.api.servlets;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

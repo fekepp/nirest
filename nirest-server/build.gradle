@@ -3,7 +3,6 @@
  */
 plugins {
 	id 'application'
-	//id 'org.akhikhl.gretty' version '1.2.4'
 }
 
 
@@ -17,7 +16,7 @@ plugins {
 description = 'NIREST Server'
 
 // Applications plugin
-mainClassName = 'net.fekepp.nirest.webapp.Main'
+mainClassName = 'net.fekepp.nirest.server.Main'
 
 jar {
 	manifest {
@@ -44,7 +43,7 @@ dependencies {
 	//
 	
 	// NIREST
-	compile project(':nirest-device')
+	compile project(':nirest-api')
 	
 	
 	//

@@ -1,4 +1,4 @@
-package net.fekepp.nirest.webapp.controllers;
+package net.fekepp.controllers;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.servlet.ServletHolder;

@@ -1,4 +1,4 @@
-package net.fekepp.nirest.webapp.listeners;
+package net.fekepp.nirest.api.listeners;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import net.fekepp.nirest.model.User;
  * @author "Felix Leif Keppmann"
  */
 @WebListener
-public class ContextListener implements ServletContextListener {
+public class ApiContextListener implements ServletContextListener {
 
 	private DeviceController controller;
 

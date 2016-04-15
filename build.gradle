@@ -120,3 +120,47 @@ subprojects {
 	
 	
 }
+
+apply plugin: 'distribution'
+
+distributions {
+	
+	main {
+		
+		contents {
+			
+			into('bin') {
+				from { project(':nirest-device').startScripts.outputs.files }
+				from { project(':nirest-server').startScripts.outputs.files }
+				fileMode = 0755
+			}
+			
+			into('lib') {
+				def libs = []
+				libs << project(':nirest-device').configurations.runtime// - project(':runner').configurations.runtime
+				libs << project(':nirest-model').configurations.runtime
+				libs << project(':nirest-server').configurations.runtime
+				from libs
+				from project(':nirest-device').jar
+				from project(':nirest-model').jar
+				from project(':nirest-server').jar
+			}
+			
+			into('red') {
+				from('redistributables/OpenNI-Linux-x64-2.2.0.33') {
+					exclude '**/*.ini', '**/*.jar'
+				}
+				
+				from('redistributables/NiTE-Linux-x64-2.2.0.11') {
+					exclude '**/*.ini', '**/*.jar'
+				}
+			}
+			
+			from { 'redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini' }
+			from { 'redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini' }
+			
+		}
+		
+	}
+	
+}

@@ -1,4 +1,4 @@
-package net.fekepp.nirest.webapp;
+package net.fekepp.nirest.api;
 
 import javax.ws.rs.core.MediaType;
 

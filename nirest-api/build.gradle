@@ -1,0 +1,71 @@
+/*
+ * Plugins
+ */
+plugins {
+	id 'org.akhikhl.gretty' version '1.2.4'
+}
+
+
+
+
+/*
+ * Configuration
+ */
+ 
+// General
+description = 'NIREST API'
+
+
+
+
+/*
+ * Dependencies
+ */
+dependencies {
+	
+	
+	/*
+	 * Compile Dependencies
+	 */
+	
+	//
+	// Internal
+	//
+	
+	// NIREST
+	compile project(':nirest-device')
+	
+	
+	//
+	// External
+	//
+	
+	// Jersey
+	compile 'org.glassfish.jersey.containers:jersey-container-jetty-servlet:2.+'
+	
+
+	//
+	// Local
+	//
+	
+	
+	/*
+	 * Test Dependencies
+	 */
+	
+	//
+	// Internal
+	//
+	
+	
+	//
+	// External
+	//
+	
+	
+	//
+	// Local
+	//
+	
+	
+}

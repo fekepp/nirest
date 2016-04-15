@@ -1,4 +1,4 @@
-package net.fekepp.nirest.webapp.servlets;
+package net.fekepp.nirest.api.servlets;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,9 +18,9 @@ import javax.ws.rs.core.StreamingOutput;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
+import net.fekepp.nirest.api.MediaTypeLocal;
 import net.fekepp.nirest.model.DepthSensor;
 import net.fekepp.nirest.vocab.NIREST;
-import net.fekepp.nirest.webapp.MediaTypeLocal;
 
 /**
  * @author "Felix Leif Keppmann"
