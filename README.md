@@ -1,7 +1,7 @@
 Natural Interaction via REST (NIREST)
 ======
 ## About
-NIREST utilized [OpenKinect libfreenect](https://github.com/OpenKinect/libfreenect/).
+NIREST uses the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreenect/tree/master/OpenNI2-FreenectDriver) from [libfreenect](https://github.com/OpenKinect/libfreenect/) of the [OpenKinect Project](http://www.openkinect.org), [OpenNI](http://structure.io/openni), and NiTE.
 
 ## Requirements
 
