@@ -3,6 +3,7 @@
  */
 plugins {
 	id 'eclipse'
+	id 'distribution'
 }
 
 
@@ -121,14 +122,18 @@ subprojects {
 	
 }
 
-apply plugin: 'distribution'
 
+
+
+/*
+ * Distribution
+ */
 distributions {
 	
 	main {
 		
 		contents {
-			
+		
 			into('bin') {
 				from { project(':nirest-device').startScripts.outputs.files }
 				from { project(':nirest-server').startScripts.outputs.files }
@@ -136,16 +141,23 @@ distributions {
 			}
 			
 			into('lib') {
-				def libs = []
-				libs << project(':nirest-device').configurations.runtime// - project(':runner').configurations.runtime
-				libs << project(':nirest-model').configurations.runtime
-				libs << project(':nirest-api').configurations.runtime
-				libs << project(':nirest-server').configurations.runtime
-				from libs
+
+				// Include JARs of NIREST Device with dependencies
 				from project(':nirest-device').jar
+				from project(':nirest-device').configurations.runtime
+				
+				// Include JARs of NIREST Model with dependencies
 				from project(':nirest-model').jar
+				from project(':nirest-model').configurations.runtime
+				
+				// Include JARs of NIREST API with dependencies
 				from project(':nirest-api').jar
+				from project(':nirest-api').configurations.runtime
+				
+				// Include JARs of NIREST Server with dependencies
 				from project(':nirest-server').jar
+				from project(':nirest-server').configurations.runtime
+				
 			}
 			
 			into('red') {
@@ -155,7 +167,7 @@ distributions {
 				}
 				
 				from('redistributables/NiTE-Linux-x64-2.2.0.11') {
-					exclude '**/*.ini', '**/*.jar'
+					exclude '**/*.org.ini', '**/*.jar'
 				}
 				
 			}
@@ -166,8 +178,18 @@ distributions {
 				
 			}
 			
-			//from { 'redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini' }
-			//from { 'redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini' }
+			into('red') {
+				
+				from('redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini')
+				
+				filter {
+					line -> line.replace(
+						'Repository=../OpenKinect-OpenNI2-FreenectDriver-0.5.3',
+						'Repository=OpenNI2-FreenectDriver'
+					)
+				}
+				
+			}
 			
 		}
 		
