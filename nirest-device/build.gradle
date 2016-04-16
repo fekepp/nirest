@@ -12,30 +12,16 @@ plugins {
 /*
  * Configuration
  */
-
+ 
 // General
 description = 'NIREST Devices'
 
+
 // Applications plugin
 mainClassName = 'net.fekepp.nirest.device.Main'
-//defaultJvmOpts = '-Djava.library.path=../red/'
-//optsEnvironmentVar = 'LD_LIBRARY_PATH=../redistributables/OpenNI-Linux-x64-2.2.0.33/:../redistributables/NiTE-Linux-x64-2.2.0.11/'
-//optsEnvironmentVar = 'LD_LIBRARY_PATH'
-
-task customStartScripts (type: CreateStartScripts) {
-	applicationName = 'nirest-device-test'
-	classpath = configurations.runtime
-	mainClassName = 'net.fekepp.nirest.device.Main'
-	defaultJvmOpts = ['-Djava.library.path=../red/']
-	//optsEnvironmentVar = 'LD_LIBRARY_PATH=../redistributables/OpenNI-Linux-x64-2.2.0.33/:../redistributables/NiTE-Linux-x64-2.2.0.11/'
-	outputDir = file('build/bin')
-}
-
-//startScripts.dependsOn customStartScripts
-
-startScripts.defaultJvmOpts = ['-Djava.library.path=$APP_HOME/red/']
 
 
+// JAR metadata
 jar {
 	manifest {
 		attributes	'Implementation-Title': 'NIREST Devices',
@@ -99,49 +85,80 @@ dependencies {
 	
 }
 
+
+
+
+/*
+ * Distribution
+ */
 distributions {
 	
 	main {
 		
 		contents {
 			
-			into('bin') {
-				from { '../redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini' }
-				from { '../redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini' }
-			}
-			
-			/*
-			into('bin') {
-				from { project(':nirest-device').startScripts.outputs.files }
-				from { project(':nirest-server').startScripts.outputs.files }
-				fileMode = 0755
-			}
-			
-			into('lib') {
-				def libs = []
-				libs << project(':nirest-device').configurations.runtime// - project(':runner').configurations.runtime
-				libs << project(':nirest-model').configurations.runtime
-				libs << project(':nirest-server').configurations.runtime
-				from libs
-				from project(':nirest-device').jar
-				from project(':nirest-model').jar
-				from project(':nirest-server').jar
-			}*/
-			
 			into('red') {
+			
 				from('../redistributables/OpenNI-Linux-x64-2.2.0.33') {
-					exclude '**/*.ini', '**/*.jar'
+					exclude '**/OpenNI2', '**/*.ini', '**/*.jar'
 				}
 				
 				from('../redistributables/NiTE-Linux-x64-2.2.0.11') {
-					exclude '**/*.ini', '**/*.jar'
+					exclude '**/*.org.ini', '**/*.jar'
 				}
+				
 			}
 			
-			//from { '../redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini' }
-			//from { '../redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini' }
+			into('red/OpenNI2-FreenectDriver') {
+				
+				from('../redistributables/OpenKinect-OpenNI2-FreenectDriver-0.5.3')
+				
+			}
+			
+			into('red') {
+				
+				from('../redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini')
+				
+				filter {
+					line -> line.replace(
+						'Repository=../OpenKinect-OpenNI2-FreenectDriver-0.5.3',
+						'Repository=OpenNI2-FreenectDriver'
+					)
+				}
+				
+			}
 			
 		}
+		
+	}
+	
+}
+
+
+
+
+/*
+ * Start Scripts
+ */
+startScripts {
+	
+	doLast {
+		
+		unixScript.text =
+			unixScript.text.replace(
+				'exec',
+				'# Required to let the JVM correctly locate native libraries' +
+				'\n' +
+				'export LD_LIBRARY_PATH="$APP_HOME/red"' +
+				'\n\n' +
+				'# Required to fix "current working directory" issue of native NiTe libraries' +
+				'\n' +
+				'cd "$APP_HOME/red"' +
+				'\n\n\n' +
+				'exec'
+			)
+		
+		windowsScript.delete()
 		
 	}
 	
