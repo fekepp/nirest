@@ -87,3 +87,82 @@ dependencies {
 	
 	
 }
+
+
+
+
+/*
+ * Distribution
+ */
+distributions {
+	
+	main {
+		
+		contents {
+			
+			into('red') {
+			
+				from('../redistributables/OpenNI-Linux-x64-2.2.0.33') {
+					exclude '**/OpenNI2', '**/*.ini', '**/*.jar'
+				}
+				
+				from('../redistributables/NiTE-Linux-x64-2.2.0.11') {
+					exclude '**/*.org.ini', '**/*.jar'
+				}
+				
+			}
+			
+			into('red/OpenNI2-FreenectDriver') {
+				
+				from('../redistributables/OpenKinect-OpenNI2-FreenectDriver-0.5.3')
+				
+			}
+			
+			into('red') {
+				
+				from('../redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini')
+				
+				filter {
+					line -> line.replace(
+						'Repository=../OpenKinect-OpenNI2-FreenectDriver-0.5.3',
+						'Repository=OpenNI2-FreenectDriver'
+					)
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+
+
+
+/*
+ * Start Scripts
+ */
+startScripts {
+	
+	doLast {
+		
+		unixScript.text =
+			unixScript.text.replace(
+				'exec',
+				'# Required to let the JVM correctly locate native libraries' +
+				'\n' +
+				'export LD_LIBRARY_PATH="$APP_HOME/red"' +
+				'\n\n' +
+				'# Required to fix "current working directory" issue of native NiTe libraries' +
+				'\n' +
+				'cd "$APP_HOME/red"' +
+				'\n\n\n' +
+				'exec'
+			)
+		
+		windowsScript.delete()
+		
+	}
+	
+}
