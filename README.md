@@ -1,74 +1,48 @@
 Natural Interaction via REST (NIREST)
-======
-## About
+=
+# About
 NIREST uses the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreenect/tree/master/OpenNI2-FreenectDriver) from [libfreenect](https://github.com/OpenKinect/libfreenect/) of the [OpenKinect Project](http://www.openkinect.org), [OpenNI](http://structure.io/openni), and NiTE.
 
-## Requirements
+This application provides body tracking for Kinect v1 as RDF read-only REST resources.
 
-### Hardware
+# Requirements
 * Connected Microsoft Kinect v1
+* Java 8
+* Docker (optional for running the NIREST Docker container)
+
+# Setup
+All required commands are provides as shell scripts, which may be read for further investigation.
 
 ## Docker
-Docker images for NIREST are automatically build.
-* Based on an Ubuntu image.
-* All runtime and build dependencies are installed
-* NIREST and OpenKinect libfreenect repositories are cloned
-* OpenKinect libfreenect is build and installed
-* OpenKinect libfreenect OpenNI Drivers are build and installed
-* OpenNI/NiTE are installed and OpenKinect libfreenect OpenNI Drivers are linked
-* Ini files for OpenNI/NiTE are generated to point to the correct drivers and data directories
+[NIREST Docker images](https://hub.docker.com/r/fekepp/nirest) are automatically build at [Docker Hub](http://hub.docker.com).
 
-### Helper scripts
-Use the helper script to pull/run the docker image and start NIREST.
-NIREST will be available at "http://localhost:8888".
+* Based on latest Ubuntu image
+* Installation of all dependencies
+* Cloning of NIREST and libfreenect repositories
+* Building and installation of libfreenect, including OpenNI2-FreenectDriver
+* Installation of OpenNI and NiTE middleware
+* Configuration of OpenNI and NiTE
 
-    ./docker-run-nirest.sh
-
-Pull/run the docker image and start a Bash session.
-
-    ./docker-run-nirest-shell.sh
-
-### Manually
-
-#### Pull image
+### Docker Image
 Pull the latest docker image.
 
-    docker pull fekepp/nirest
+    ./docker-pull.sh
 
-#### Run image, start Gradle
-Pull/run the docker image and start NIREST.
-NIREST will be available at "http://localhost:8888/".
+### Docker Helpers
+Run the docker image and start the NIREST server, which will be available at "http://localhost:8888".
 
-    docker
-      run \
-      -ti \
-      -p 8888:8888 \
-      --privileged \
-      -v /dev/bus/usb:/dev/bus/usb \
-      -v /tmp/.X11-unix:/tmp/.X11-unix \
-      -e DISPLAY=$DISPLAY \
-      --rm fekepp/nirest /bin/bash ./gradlew :nirest-server:run
+    ./docker-run-server.sh
 
-#### Run image, start Bash, start Gradle
-Pull/run the docker image and start a Bash session.
+Run the docker image and start a Bash session for manual intervention.
 
-    docker
-      run \
-      -ti \
-      -p 8888:8888 \
-      --privileged \
-      -v /dev/bus/usb:/dev/bus/usb \
-      -v /tmp/.X11-unix:/tmp/.X11-unix \
-      -e DISPLAY=$DISPLAY \
-      --rm fekepp/nirest /bin/bash ./gradlew :nirest-server:run
+    ./docker-run-shell.sh
 
-Use Gradle wrapper to start NIREST.
-NIREST will be available at "http://localhost:8888/".
+### Docker Build
+For manual local build of the docker image, clone the GitHub repository of NIREST and build the Docker image as usual.
 
-    ./gradlew :nirest-server:run
-#### Build image
-Build the Docker image as usual.
+    ./docker-build.sh
 
-    git clone https://github.com/fekepp/nirest/
-    cd nirest
-    docker build .
+## Gradle
+Run NIREST server directly via Gradle using pre-compiled OpenNI2-FreenectDriver.
+
+    ./gradle-run-server.sh
