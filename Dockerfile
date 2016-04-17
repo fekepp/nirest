@@ -1,14 +1,14 @@
-# Base: Ubuntu
-FROM	ubuntu:trusty
+# Base: Ubuntu 14.04 LTS
+FROM	ubuntu:14.04
 
 
 # Maintainers
-MAINTAINER "Felix Leif Keppmann <felix.leif.keppmann@kit.edu> / Dmitri Rubinstein <dmitri.rubinstein@dfki.de>"
+MAINTAINER "Felix Leif Keppmann <felix.leif@keppmann.de>"
 
 
-# Ubuntu: install software properties common required to add custom repositories
+# Ubuntu: install "software-properties-common", required to add custom repositories
 RUN	apt-get install -y \
-	software-properties-common
+		software-properties-common
 
 
 # Ubuntu: add repository with recent Oracle Java packages
@@ -20,28 +20,42 @@ RUN	echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-
 RUN	echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 
 
-# Ubuntu: update and upgrade
-RUN	apt-get update && \
-	apt-get upgrade -y
-
-
 # Ubuntu: install required packages
 RUN	apt-get update && \
 	apt-get install -y \
+		build-essential \
+		bzip2 \
+		cmake \
+		curl \
+		cython \
+		freeglut3-dev \
+		g++ \
+		gcc \
 		git \
-		curl make \
-		cmake gcc g++ \
-		build-essential libtool \
+		libtool \
+		libusb-1.0-0-dev \
+		libxi-dev \
+		libxmu-dev \
+		make \
+		oracle-java8-installer \
 		pkg-config \
-		bzip2 libusb-1.0-0-dev freeglut3-dev \
-		libxmu-dev libxi-dev python python-dev python-numpy cython \
-		oracle-java8-installer
+		python \
+		python-dev \
+		python-numpy && \
+	rm -rf /var/lib/apt/lists/*
 
 
-# NIREST/Libfreenect: clone Git repositories of NIREST and libfreenect
+# NIREST: clone repository and switch to correct branch or tag
 WORKDIR	/root
-RUN	git clone https://github.com/fekepp/nirest.git
-RUN	git clone https://github.com/OpenKinect/libfreenect.git
+RUN	git clone https://github.com/fekepp/nirest.git && \
+	cd nirest && \
+	git checkout master
+
+
+# Libfreenect: clone repository and switch to correct branch or tag
+RUN	git clone https://github.com/OpenKinect/libfreenect.git && \
+	cd libfreenect && \
+	git checkout v0.5.3
 
 
 # Libfreenect: build and install
