@@ -21,12 +21,20 @@ description = 'NIREST'
  * Projects
  */
 allprojects {
+
+
+	apply plugin: 'java'
 	
 	
 	/*
 	 * Configuration
 	 */
 	version = '0.1.0-pre.0-SNAPSHOT'
+	
+	sourceCompatibility = 1.7
+	targetCompatibility = 1.7
+	
+	project.ext.nxparser_version = '759560aaff2917c0e853452c9d0adaaefed8ba3c'
 	
 	
 }
@@ -53,6 +61,9 @@ subprojects {
 	repositories {
 		mavenLocal()
 		mavenCentral()
+		maven {
+			url 'https://jitpack.io'
+		}
 		flatDir {
 			dirs 'libraries'
 		}
@@ -88,6 +99,28 @@ subprojects {
 		compile 'commons-io:commons-io:2.4'
 		compile 'com.google.guava:guava:15.0'
 		compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4'
+		
+		// NxParser
+		//compile 'org.semanticweb.yars:nxparser-parsers:' + rootProject.nxparser_version
+		//compile 'org.semanticweb.yars:nxparser-utilities-uri:' + rootProject.nxparser_version
+		//compile 'org.semanticweb.yars:nxparser-model-datatypes:' + rootProject.nxparser_version
+		//compile 'org.semanticweb.yars:nxparser-api:' + rootProject.nxparser_version
+		//compile(group: 'org.semanticweb.yars', name: 'nxparser-jax-rs', version:rootProject.nxparser_version) {
+		//	exclude(module: 'slf4j-log4j12')
+		//	exclude(module: 'log4j')
+		//	exclude(module: 'slf4j-api')
+		//}
+		
+		// Use just-in-time snapshot dependencies till next stable release
+		compile 'com.github.nxparser.nxparser:nxparser-parsers:' + rootProject.nxparser_version
+		compile 'com.github.nxparser.nxparser:nxparser-utilities-uri:' + rootProject.nxparser_version
+		compile 'com.github.nxparser.nxparser:nxparser-model-datatypes:' + rootProject.nxparser_version
+		compile 'com.github.nxparser.nxparser:nxparser-api:' + rootProject.nxparser_version
+		compile(group: 'com.github.nxparser.nxparser', name: 'nxparser-jax-rs', version:rootProject.nxparser_version) {
+			exclude(module: 'slf4j-log4j12')
+			exclude(module: 'log4j')
+			exclude(module: 'slf4j-api')
+		}
 		
 		
 		//
