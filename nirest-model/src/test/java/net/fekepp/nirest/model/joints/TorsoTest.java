@@ -1,12 +1,10 @@
 package net.fekepp.nirest.model.joints;
 
-import java.io.StringWriter;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 import net.fekepp.nirest.model.Coordinate3D;
 
@@ -27,12 +25,7 @@ public class TorsoTest extends Joint {
 		joint.setPositionConfidence(1.0f);
 		joint.setCoordinate(coordinate);
 
-		// Model model = joint.createDefaultModel();
-		//
-		// StringWriter writer = new StringWriter();
-		// model.write(writer, "TURTLE");
-		//
-		// logger.debug("\n{}", writer.toString());
+		logger.debug("\n{}", Arrays.deepToString(joint.getRepresentation(null).toArray()));
 
 	}
 
