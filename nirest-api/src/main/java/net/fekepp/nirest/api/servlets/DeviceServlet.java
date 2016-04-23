@@ -1,7 +1,6 @@
 package net.fekepp.nirest.api.servlets;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -18,6 +17,8 @@ import javax.ws.rs.core.UriInfo;
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.Resource;
 
+import com.github.benmanes.caffeine.cache.Cache;
+
 import net.fekepp.nirest.model.DepthSensor;
 
 /**
@@ -27,7 +28,7 @@ import net.fekepp.nirest.model.DepthSensor;
 @Produces("text/turtle")
 public class DeviceServlet {
 
-	private static Map<String, DepthSensor> devices;
+	private static Cache<String, DepthSensor> devices;
 
 	@Context
 	private ServletContext servletContext;
@@ -46,7 +47,7 @@ public class DeviceServlet {
 		Resource identifierResource = new Resource(uriInfo.getRequestUri().toString());
 
 		// Get requested device from cache
-		DepthSensor device = devices.get(identifier);
+		DepthSensor device = devices.getIfPresent(identifier);
 
 		// Return HTTP 404 if device was not found
 		if (device == null) {
@@ -62,11 +63,11 @@ public class DeviceServlet {
 
 	}
 
-	public static Map<String, DepthSensor> getDevices() {
+	public static Cache<String, DepthSensor> getDevices() {
 		return devices;
 	}
 
-	public static void setDevices(Map<String, DepthSensor> devices) {
+	public static void setDevices(Cache<String, DepthSensor> devices) {
 		DeviceServlet.devices = devices;
 	}
 

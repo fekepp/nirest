@@ -1,7 +1,6 @@
 package net.fekepp.nirest.device.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.openni.Device;
 import org.openni.DeviceInfo;
@@ -13,7 +12,8 @@ import org.openni.VideoMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.primesense.nite.NiTE;
 import com.primesense.nite.UserTracker;
 
@@ -28,13 +28,11 @@ import net.fekepp.nirest.model.User;
  */
 public class DeviceController extends AbstractController {
 
-	private Map<String, DepthSensor> devices = new ConcurrentLinkedHashMap.Builder<String, DepthSensor>()
-			.maximumWeightedCapacity(1000000).build();
-
-	private Map<String, User> users = new ConcurrentLinkedHashMap.Builder<String, User>()
-			.maximumWeightedCapacity(1000000).build();
-
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	private Cache<String, DepthSensor> devices = Caffeine.newBuilder().build();
+
+	private Cache<String, User> users = Caffeine.newBuilder().build();
 
 	@Override
 	protected void startup() throws Exception {
@@ -146,19 +144,19 @@ public class DeviceController extends AbstractController {
 
 	}
 
-	public Map<String, DepthSensor> getDevices() {
+	public Cache<String, DepthSensor> getDevices() {
 		return devices;
 	}
 
-	public void setDevices(Map<String, DepthSensor> devices) {
+	public void setDevices(Cache<String, DepthSensor> devices) {
 		this.devices = devices;
 	}
 
-	public Map<String, User> getUsers() {
+	public Cache<String, User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Map<String, User> users) {
+	public void setUsers(Cache<String, User> users) {
 		this.users = users;
 	}
 

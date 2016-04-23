@@ -6,6 +6,8 @@ import java.util.Map;
 import org.openni.DeviceInfo;
 import org.openni.OpenNI;
 
+import com.github.benmanes.caffeine.cache.Cache;
+
 import net.fekepp.nirest.model.DepthSensor;
 
 /**
@@ -21,7 +23,7 @@ public class DeviceHelper {
 		return createDevice(deviceInfos.get(id));
 	}
 
-	public static void addDevices(Map<String, DepthSensor> devices) {
+	public static void addDevices(Cache<String, DepthSensor> devices) {
 
 		List<DeviceInfo> deviceInfos = OpenNI.enumerateDevices();
 		for (int index = 0; index < deviceInfos.size(); index++) {

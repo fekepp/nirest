@@ -31,8 +31,8 @@ allprojects {
 	 */
 	version = '0.1.0-pre.0-SNAPSHOT'
 	
-	sourceCompatibility = 1.7
-	targetCompatibility = 1.7
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
 	
 	project.ext.nxparser_version = '759560aaff2917c0e853452c9d0adaaefed8ba3c'
 	
@@ -93,12 +93,13 @@ subprojects {
 		compile 'org.slf4j:slf4j-api:1.7.+'
 		compile 'org.slf4j:log4j-over-slf4j:1.7.+'
 		compile 'org.slf4j:jcl-over-slf4j:1.7.+'
-		compile('ch.qos.logback:logback-classic:1.1.+')
+		compile 'ch.qos.logback:logback-classic:1.1.+'
 		
 		// Common
 		compile 'commons-io:commons-io:2.4'
-		compile 'com.google.guava:guava:15.0'
-		compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4'
+		
+		// Caffeine
+		compile 'com.github.ben-manes.caffeine:caffeine:2.2.6'
 		
 		// NxParser
 		//compile 'org.semanticweb.yars:nxparser-parsers:' + rootProject.nxparser_version

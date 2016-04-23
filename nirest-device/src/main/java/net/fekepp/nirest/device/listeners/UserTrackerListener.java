@@ -1,7 +1,6 @@
 package net.fekepp.nirest.device.listeners;
 
-import java.util.Map;
-
+import com.github.benmanes.caffeine.cache.Cache;
 import com.primesense.nite.JointType;
 import com.primesense.nite.Point3D;
 import com.primesense.nite.Skeleton;
@@ -19,7 +18,7 @@ import net.fekepp.nirest.model.User;
  */
 public class UserTrackerListener implements NewFrameListener {
 
-	private Map<String, User> users;
+	private Cache<String, User> users;
 
 	boolean onlyOneUserHelper = false;
 	short onlyOneUserHelperID = -1;
@@ -27,7 +26,7 @@ public class UserTrackerListener implements NewFrameListener {
 	@Override
 	public void onNewFrame(UserTracker tracker) {
 
-		users.clear();
+		users.invalidateAll();
 
 		UserTrackerFrameRef frame = tracker.readFrame();
 
@@ -364,11 +363,11 @@ public class UserTrackerListener implements NewFrameListener {
 
 	}
 
-	public Map<String, User> getUsers() {
+	public Cache<String, User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Map<String, User> users) {
+	public void setUsers(Cache<String, User> users) {
 		this.users = users;
 	}
 

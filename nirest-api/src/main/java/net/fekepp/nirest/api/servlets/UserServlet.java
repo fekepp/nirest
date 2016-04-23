@@ -1,7 +1,6 @@
 package net.fekepp.nirest.api.servlets;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -17,6 +16,8 @@ import javax.ws.rs.core.UriInfo;
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.Resource;
 
+import com.github.benmanes.caffeine.cache.Cache;
+
 import net.fekepp.nirest.model.User;
 
 /**
@@ -25,7 +26,7 @@ import net.fekepp.nirest.model.User;
 @Path("/user/")
 public class UserServlet {
 
-	private static Map<String, User> users;
+	private static Cache<String, User> users;
 
 	@Context
 	private ServletContext servletContext;
@@ -44,7 +45,7 @@ public class UserServlet {
 		Resource identifierResource = new Resource(uriInfo.getRequestUri().toString());
 
 		// Get requested user from cache
-		User user = users.get(identifier);
+		User user = users.getIfPresent(identifier);
 
 		// Return HTTP 404 if user was not found
 		if (user == null) {
@@ -60,11 +61,11 @@ public class UserServlet {
 
 	}
 
-	public static Map<String, User> getUsers() {
+	public static Cache<String, User> getUsers() {
 		return users;
 	}
 
-	public static void setUsers(Map<String, User> users) {
+	public static void setUsers(Cache<String, User> users) {
 		UserServlet.users = users;
 	}
 

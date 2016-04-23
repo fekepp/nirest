@@ -1,10 +1,10 @@
 package net.fekepp.nirest.api.listeners;
 
-import java.util.Map;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import com.github.benmanes.caffeine.cache.Cache;
 
 import net.fekepp.nirest.api.servlets.DeviceServlet;
 import net.fekepp.nirest.api.servlets.UserServlet;
@@ -20,9 +20,9 @@ public class ApiContextListener implements ServletContextListener {
 
 	private DeviceController controller;
 
-	private Map<String, DepthSensor> devices;
+	private Cache<String, DepthSensor> devices;
 
-	private Map<String, User> users;
+	private Cache<String, User> users;
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
