@@ -1,104 +1,50 @@
-# Base: Ubuntu 14.04 LTS
-FROM	ubuntu:14.04
+# Depend on the official Ubuntu 16.04 LTS image
+FROM	ubuntu:16.04
 
 
-# Maintainers
+# Define maintainer
 MAINTAINER "Felix Leif Keppmann <felix.leif@keppmann.de>"
 
 
-# Ubuntu: install "software-properties-common", required to add custom repositories
-RUN	apt-get install -y \
-		software-properties-common
+# Add Gradle build file which will be used to determine the version
+ADD	build.gradle /root/
 
 
-# Ubuntu: add repository with recent Oracle Java packages
-RUN	add-apt-repository -y ppa:webupd8team/java
-
-
-# Ubuntu: accept license required to install Oracle Java 8 JDK
-RUN	echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-RUN	echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
-
-
-# Ubuntu: install required packages
-RUN	apt-get update && \
-	apt-get install -y \
-		build-essential \
-		bzip2 \
-		cmake \
+# Determine version from Gradle build file and fall back to master in case of snapshots
+# Install required dependencies
+# Download and compile sources
+# Install distribution files
+# Remove obsolete files
+# Log version and URL
+RUN	cd /root/ \
+	&& export VERSION=$(cat build.gradle | grep -e "^\s*version = " | sed -e "s/^\s*version = '//"  -e "s/'$//") \
+	&& case $VERSION in *"-SNAPSHOT") export VERSION="master";; esac \
+	&& export URL="https://github.com/fekepp/nirest/archive/$VERSION.tar.gz" \
+	\
+	&& apt-get update \
+	&& apt-get install -y \
 		curl \
-		cython \
-		freeglut3-dev \
-		g++ \
-		gcc \
-		git \
-		libtool \
 		libusb-1.0-0-dev \
-		libxi-dev \
-		libxmu-dev \
-		make \
-		oracle-java8-installer \
-		pkg-config \
-		python \
-		python-dev \
-		python-numpy && \
-	rm -rf /var/lib/apt/lists/*
+		openjdk-8-jdk \
+	&& rm -rf /var/lib/apt/lists/* \
+	\
+	&& cd /usr/src/ \
+	&& mkdir nirest \
+	&& curl -SL "$URL" -o nirest.tar.gz \
+	&& tar --strip-components=1 -xzf nirest.tar.gz -C nirest \
+	&& cd nirest \
+	&& ./gradlew installDist \
+	\
+	&& mv build/install/nirest /usr/share/ \
+	\
+	&& cd / \
+	&& rm -r /root/.gradle \
+	&& rm -r /usr/src/nirest \
+	&& rm /usr/src/nirest.tar.gz \
+	\
+	&& echo "VERSION=$VERSION" \
+	&& echo "URL=$URL"
 
 
-# NIREST: clone repository and switch to correct branch or tag
-WORKDIR	/root
-RUN	git clone https://github.com/fekepp/nirest.git && \
-	cd nirest && \
-	git checkout master
-
-
-# Libfreenect: clone repository and switch to correct branch or tag
-RUN	git clone https://github.com/OpenKinect/libfreenect.git && \
-	cd libfreenect && \
-	git checkout v0.5.3
-
-
-# Libfreenect: build and install
-RUN	mkdir build
-WORKDIR	/root/libfreenect/build
-RUN	cmake -L -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_OPENNI2_DRIVER=ON .. && \
-	make && \
-	make install
-
-
-# Libfreenect: fetch and manually install firmware
-WORKDIR	/root/
-RUN	python ./libfreenect/src/fwfetcher.py && \
-	mv audios.bin /usr/share/libfreenect
-
-
-# OpenNI/NiTE: manually install libraries
-WORKDIR	/root/nirest
-RUN	cp -v redistributables/OpenNI-Linux-x64-2.2.0.33/*.so /usr/lib/ && \
-	cp -v redistributables/NiTE-Linux-x64-2.2.0.11/*.so /usr/lib/ && \
-	cp -rv redistributables/NiTE-Linux-x64-2.2.0.11/NiTE2 /usr/lib/
-
-
-# NIREST: run tests with Gradle to trigger download of all dependencies
-RUN	./gradlew test
-
-
-# NIREST: configure OpenNI for NIREST server (see redistributables/OpenNI-Linux-x64-2.2.0.33/OpenNI.ini)
-WORKDIR /root/nirest
-RUN	echo "[Drivers]" > /usr/lib/OpenNI.ini && \
-	echo "Repository=/usr/lib/OpenNI2-FreenectDriver" >> /usr/lib/OpenNI.ini && \
-	echo "" >> /usr/lib/OpenNI.ini && \
-	echo "[Log]" >> /usr/lib/OpenNI.ini && \
-	echo "Verbosity=3" >> /usr/lib/OpenNI.ini && \
-	echo "LogToConsole=0" >> /usr/lib/OpenNI.ini && \
-	echo "LogToFile=0" >> /usr/lib/OpenNI.ini
-
-
-# NIREST: configure NiTE for NIREST Server (see redistributables/NiTE-Linux-x64-2.2.0.11/NiTE.ini)
-RUN	echo "[General]" > nirest-server/NiTE.ini && \
-	echo "DataDir=/usr/lib/NiTE2" >> nirest-server/NiTE.ini && \
-	echo "" >> nirest-server/NiTE.ini && \
-	echo "[Log]" >> nirest-server/NiTE.ini && \
-	echo "Verbosity=3" >> nirest-server/NiTE.ini && \
-	echo "LogToConsole=0" >> nirest-server/NiTE.ini && \
-	echo "LogToFile=0" >> nirest-server/NiTE.ini
+# Set default entry point
+ENTRYPOINT ["/usr/share/nirest/bin/nirest-server"]
