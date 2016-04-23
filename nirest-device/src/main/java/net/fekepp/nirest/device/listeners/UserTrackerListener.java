@@ -1,5 +1,11 @@
 package net.fekepp.nirest.device.listeners;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.benmanes.caffeine.cache.Cache;
 import com.primesense.nite.JointType;
 import com.primesense.nite.Point3D;
@@ -18,6 +24,8 @@ import net.fekepp.nirest.model.User;
  */
 public class UserTrackerListener implements NewFrameListener {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	private Cache<String, User> users;
 
 	boolean onlyOneUserHelper = false;
@@ -26,9 +34,9 @@ public class UserTrackerListener implements NewFrameListener {
 	@Override
 	public void onNewFrame(UserTracker tracker) {
 
-		users.invalidateAll();
-
 		UserTrackerFrameRef frame = tracker.readFrame();
+
+		Map<String, User> frameUsers = new HashMap<String, User>();
 
 		// FIXME START Temporary to track only one user with ID = 1
 		onlyOneUserHelper = false;
@@ -49,10 +57,10 @@ public class UserTrackerListener implements NewFrameListener {
 
 			if (user.isNew()) {
 				tracker.startSkeletonTracking(userId);
-				System.out.println("TRACKING STARTED > " + userId);
+				logger.info("Tracking > NiTE ID > {} > NIREST ID > {}", userId, userId - 1);
 			}
 
-			// FIXME START Temporary to track only one user with ID = 1
+			// FIXME START Temporary to track only one user with ID = 0
 			if (userTmp != null) {
 				user = userTmp;
 			}
@@ -64,7 +72,7 @@ public class UserTrackerListener implements NewFrameListener {
 			onlyOneUserHelper = true;
 			onlyOneUserHelperID = user.getId();
 			userId = 1;
-			// FIXME END Temporary to track only one user with ID = 1
+			// FIXME END Temporary to track only one user with ID = 0
 
 			net.fekepp.nirest.model.User modelUser = new net.fekepp.nirest.model.User();
 
@@ -355,8 +363,16 @@ public class UserTrackerListener implements NewFrameListener {
 
 			}
 
-			users.put(String.valueOf(userId), modelUser);
+			frameUsers.put(String.valueOf(userId - 1), modelUser);
 
+			// logger.info("Updated user | with skeleton > {} | {}", userId - 1,
+			// skeleton.getState() == SkeletonState.TRACKED);
+
+		}
+
+		synchronized (users) {
+			users.invalidateAll();
+			users.putAll(frameUsers);
 		}
 
 		frame.release();
