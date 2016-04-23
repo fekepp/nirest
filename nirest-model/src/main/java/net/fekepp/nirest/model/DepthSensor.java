@@ -1,13 +1,16 @@
 package net.fekepp.nirest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.semanticweb.yars.nx.Literal;
+import org.semanticweb.yars.nx.Node;
+import org.semanticweb.yars.nx.Resource;
+import org.semanticweb.yars.nx.namespace.RDF;
+import org.semanticweb.yars.nx.namespace.XSD;
 
 import net.fekepp.nirest.vocab.NIREST;
 
-@XmlRootElement
 public class DepthSensor {
 
 	private String id;
@@ -17,35 +20,55 @@ public class DepthSensor {
 	private int usbProductID;
 	private int usbVendorID;
 
-	public Resource createURI(Model model) {
-		return model.createResource(id);
-	}
+	// public Resource createURI(Model model) {
+	// return model.createResource(id);
+	// }
 
-	public Resource createResource(Model model) {
-		return createResource(model, null);
-	}
+	// public Resource createResource(Model model) {
+	// return createResource(model, null);
+	// }
 
-	public Resource createResource(Model model, String uri) {
-		Resource resource = null;
-		if (uri != null) {
-			resource = model.createResource(uri, NIREST.DepthSensor);
-		} else {
-			resource = model.createResource(NIREST.DepthSensor);
+	// public Resource createResource(Model model, String uri) {
+	// Resource resource = null;
+	// if (uri != null) {
+	// resource = model.createResource(uri, NIREST.DepthSensor);
+	// } else {
+	// resource = model.createResource(NIREST.DepthSensor);
+	// }
+	// createProperties(model, resource);
+	// return resource;
+	//
+	// }
+
+	// public Resource createProperties(Model model, Resource resource) {
+	// resource.addProperty(NIREST.name, model.createLiteral(name))
+	//
+	// .addProperty(NIREST.vendor, model.createLiteral(vendor))
+	//
+	// .addProperty(NIREST.usbProductId, model.createTypedLiteral(usbProductID))
+	//
+	// .addProperty(NIREST.usbVendorId, model.createTypedLiteral(usbVendorID));
+	// return resource;
+	// }
+
+	public Set<Node[]> getRepresentation(Node subject) {
+
+		if (subject == null) {
+			subject = new Resource("");
 		}
-		createProperties(model, resource);
-		return resource;
 
-	}
+		Set<Node[]> representation = new HashSet<Node[]>();
 
-	public Resource createProperties(Model model, Resource resource) {
-		resource.addProperty(NIREST.name, model.createLiteral(name))
+		representation.add(new Node[] { subject, RDF.TYPE, NIREST.DepthSensor });
+		representation.add(new Node[] { subject, NIREST.name, new Literal(name) });
+		representation.add(new Node[] { subject, NIREST.vendor, new Literal(vendor) });
+		representation
+				.add(new Node[] { subject, NIREST.usbProductId, new Literal(String.valueOf(usbProductID), XSD.INT) });
+		representation
+				.add(new Node[] { subject, NIREST.usbVendorId, new Literal(String.valueOf(usbVendorID), XSD.INT) });
 
-				.addProperty(NIREST.vendor, model.createLiteral(vendor))
+		return representation;
 
-				.addProperty(NIREST.usbProductId, model.createTypedLiteral(usbProductID))
-
-				.addProperty(NIREST.usbVendorId, model.createTypedLiteral(usbVendorID));
-		return resource;
 	}
 
 	public String getId() {

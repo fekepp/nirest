@@ -4,9 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class Devices {
 
 	private Map<String, DepthSensor> devices = new HashMap<String, DepthSensor>();

@@ -1,10 +1,10 @@
 package net.fekepp.nirest.model.joints;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import net.fekepp.nirest.vocab.NIREST;
 
-@XmlRootElement
+/**
+ * @author "Felix Leif Keppmann"
+ */
 public class Torso extends Joint {
 
 	public Torso() {

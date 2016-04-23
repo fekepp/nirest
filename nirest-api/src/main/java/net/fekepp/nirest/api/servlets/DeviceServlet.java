@@ -1,164 +1,73 @@
 package net.fekepp.nirest.api.servlets;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.StringWriter;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
+import javax.ws.rs.core.UriInfo;
 
-import com.hp.hpl.jena.rdf.model.Model;
+import org.semanticweb.yars.nx.Node;
+import org.semanticweb.yars.nx.Resource;
 
-import net.fekepp.nirest.api.MediaTypeLocal;
 import net.fekepp.nirest.model.DepthSensor;
-import net.fekepp.nirest.vocab.NIREST;
 
 /**
  * @author "Felix Leif Keppmann"
  */
 @Path("/device")
+@Produces("text/turtle")
 public class DeviceServlet {
+
+	private static Map<String, DepthSensor> devices;
 
 	@Context
 	private ServletContext servletContext;
 
-	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public Response html() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("<html><body><form action=\"\"><textarea cols=\"200\" rows=\"40\">");
-		Model model = generateDevicesModel();
-		StringWriter writer = new StringWriter();
-		model.write(writer, "TURTLE");
-		buffer.append(writer.toString());
-		buffer.append("</textarea></form></body></html>");
-		return Response.status(200).entity(buffer.toString()).build();
-	}
+	@Context
+	UriInfo uriInfo;
 
 	@GET
-	@Produces(MediaTypeLocal.APPLICATION_RDF_XML)
-	public Response rdfxml() {
-		StreamingOutput stream = new StreamingOutput() {
-			@Override
-			public void write(OutputStream os) throws IOException, WebApplicationException {
-				generateDevicesModel().write(os, "RDF/XML-ABBREV");
-			}
-		};
-		return Response.status(200).entity(stream).build();
-	}
+	@Path("{identifier}")
+	public Response getRepresentation(@PathParam("identifier") String identifier) {
 
-	@GET
-	@Produces(MediaTypeLocal.TEXT_TURTLE)
-	public Response turtle() {
-		StreamingOutput stream = new StreamingOutput() {
-			@Override
-			public void write(OutputStream os) throws IOException, WebApplicationException {
-				generateDevicesModel().write(os, "TURTLE");
-			}
-		};
-		return Response.status(200).entity(stream).build();
-	}
+		// Representation to be returned
+		Set<Node[]> representation = new HashSet<Node[]>();
 
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.TEXT_HTML)
-	public Response getDeviceById(@PathParam("id") String id) {
+		// URI of the requested resource
+		Resource identifierResource = new Resource(uriInfo.getRequestUri().toString());
 
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("<html><body><form action=\"\"><textarea cols=\"200\" rows=\"40\">");
-		Model model = generateDeepDeviceModel(id);
+		// Get requested device from cache
+		DepthSensor device = devices.get(identifier);
 
-		if (model != null) {
-			StringWriter writer = new StringWriter();
-			model.write(writer, "TURTLE");
-			buffer.append(writer.toString());
-			buffer.append("</textarea></form></body></html>");
-			return Response.status(200).entity(buffer.toString()).build();
+		// Return HTTP 404 if device was not found
+		if (device == null) {
+			throw new NotFoundException("Device not found");
 		}
 
-		return Response.status(404).entity("Device not found").build();
+		// Add the representation of the device to the response
+		representation.addAll(device.getRepresentation(identifierResource));
+
+		// Return representation
+		return Response.ok(new GenericEntity<Iterable<Node[]>>(representation) {
+		}).build();
 
 	}
 
-	@GET
-	@Path("{id}")
-	@Produces(MediaTypeLocal.APPLICATION_RDF_XML)
-	public Response rdfxmlByID(@PathParam("id") String id) {
-
-		final Model model = generateDeepDeviceModel(id);
-
-		if (model != null) {
-			StreamingOutput stream = new StreamingOutput() {
-				@Override
-				public void write(OutputStream os) throws IOException, WebApplicationException {
-					model.write(os, "RDF/XML-ABBREV");
-				}
-			};
-			return Response.status(200).entity(stream).build();
-		}
-
-		return Response.status(404).entity("Device not found").build();
-
+	public static Map<String, DepthSensor> getDevices() {
+		return devices;
 	}
 
-	@GET
-	@Path("{id}")
-	@Produces(MediaTypeLocal.TEXT_TURTLE)
-	public Response turtleByID(@PathParam("id") String id) {
-
-		final Model model = generateDeepDeviceModel(id);
-
-		if (model != null) {
-			StreamingOutput stream = new StreamingOutput() {
-				@Override
-				public void write(OutputStream os) throws IOException, WebApplicationException {
-					model.write(os, "TURTLE");
-				}
-			};
-			return Response.status(200).entity(stream).build();
-		}
-
-		return Response.status(404).entity("Device not found").build();
-
-	}
-
-	private Model generateDevicesModel() {
-
-		@SuppressWarnings("unchecked")
-		Map<String, DepthSensor> devicesMap = (Map<String, DepthSensor>) servletContext.getAttribute("devices");
-
-		Model model = NIREST.createDefaultModel();
-
-		for (DepthSensor device : devicesMap.values()) {
-			model.createResource("http://localhost:8888/device/" + device.getId(), NIREST.DepthSensor);
-		}
-
-		return model;
-	}
-
-	private Model generateDeepDeviceModel(String id) {
-
-		@SuppressWarnings("unchecked")
-		Map<String, DepthSensor> devicesMap = (Map<String, DepthSensor>) servletContext.getAttribute("devices");
-
-		Model model = null;
-
-		if (devicesMap.containsKey(id)) {
-			model = NIREST.createDefaultModel();
-
-			devicesMap.get(id).createResource(model, "http://localhost:8888/device/" + id);
-		}
-
-		return model;
+	public static void setDevices(Map<String, DepthSensor> devices) {
+		DeviceServlet.devices = devices;
 	}
 
 }

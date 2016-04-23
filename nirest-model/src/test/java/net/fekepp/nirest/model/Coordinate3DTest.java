@@ -1,12 +1,11 @@
 package net.fekepp.nirest.model;
 
-import java.io.StringWriter;
+import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.yars.nx.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class Coordinate3DTest {
 
@@ -20,12 +19,16 @@ public class Coordinate3DTest {
 		coordinate.setY(3.2f);
 		coordinate.setZ(3.3f);
 
-		Model model = coordinate.createDefaultModel();
+		Set<Node[]> representation = coordinate.getRepresentation(null);
 
-		StringWriter writer = new StringWriter();
-		model.write(writer, "TURTLE");
+		logger.info("Representation > {}", representation);
 
-		logger.debug("\n{}", writer.toString());
+		// Model model = coordinate.createDefaultModel();
+
+		// StringWriter writer = new StringWriter();
+		// model.write(writer, "TURTLE");
+
+		// logger.debug("\n{}", writer.toString());
 
 	}
 

@@ -1,10 +1,11 @@
 package net.fekepp.nirest.model.joints;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import net.fekepp.nirest.vocab.NIREST;
 
-@XmlRootElement
+/**
+ * @author "Felix Leif Keppmann"
+ *
+ */
 public class LeftHand extends Joint {
 
 	public LeftHand() {

@@ -27,12 +27,12 @@ public class RightElbowTest extends Joint {
 		joint.setPositionConfidence(1.0f);
 		joint.setCoordinate(coordinate);
 
-		Model model = joint.createDefaultModel();
-
-		StringWriter writer = new StringWriter();
-		model.write(writer, "TURTLE");
-
-		logger.debug("\n{}", writer.toString());
+		// Model model = joint.createDefaultModel();
+		//
+		// StringWriter writer = new StringWriter();
+		// model.write(writer, "TURTLE");
+		//
+		// logger.debug("\n{}", writer.toString());
 
 	}
 

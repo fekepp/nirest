@@ -2,11 +2,12 @@ package net.fekepp.nirest.api.listeners;
 
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import net.fekepp.nirest.api.servlets.DeviceServlet;
+import net.fekepp.nirest.api.servlets.UserServlet;
 import net.fekepp.nirest.device.controllers.DeviceController;
 import net.fekepp.nirest.model.DepthSensor;
 import net.fekepp.nirest.model.User;
@@ -30,10 +31,8 @@ public class ApiContextListener implements ServletContextListener {
 		devices = controller.getDevices();
 		users = controller.getUsers();
 
-		ServletContext context = event.getServletContext();
-		context.setAttribute("controller", controller);
-		context.setAttribute("users", users);
-		context.setAttribute("devices", devices);
+		DeviceServlet.setDevices(devices);
+		UserServlet.setUsers(users);
 
 		controller.start();
 

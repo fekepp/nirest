@@ -1,44 +1,68 @@
 package net.fekepp.nirest.model;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.semanticweb.yars.nx.BNode;
+import org.semanticweb.yars.nx.Node;
+import org.semanticweb.yars.nx.Resource;
+import org.semanticweb.yars.nx.namespace.RDF;
 
 import net.fekepp.nirest.vocab.NIREST;
 
-@XmlRootElement
 public class User {
 
 	private Coordinate3D centerOfMass;
 	private Skeleton skeleton;
 
-	public Resource createResource(Model model) {
-		return createResource(model, null);
-	}
+	// public Resource createResource(Model model) {
+	// return createResource(model, null);
+	// }
 
-	public Resource createResource(Model model, String uri) {
-		Resource resource = null;
-		if (uri != null) {
-			resource = model.createResource(uri, NIREST.User);
-		} else {
-			resource = model.createResource(NIREST.User);
+	// public Resource createResource(Model model, String uri) {
+	// Resource resource = null;
+	// if (uri != null) {
+	// resource = model.createResource(uri, NIREST.User);
+	// } else {
+	// resource = model.createResource(NIREST.User);
+	// }
+	// createProperties(model, resource);
+	// return resource;
+	//
+	// }
+
+	// public Resource createProperties(Model model, Resource resource) {
+	// resource
+	//
+	// .addProperty(NIREST.centerOfMass, centerOfMass.createResource(model))
+	//
+	// .addProperty(NIREST.skeleton, skeleton.createResource(model));
+	//
+	// return resource;
+	//
+	// }
+
+	public Set<Node[]> getRepresentation(Node subject) {
+
+		if (subject == null) {
+			subject = new Resource("");
 		}
-		createProperties(model, resource);
-		return resource;
 
-	}
+		Set<Node[]> representation = new HashSet<Node[]>();
 
-	public Resource createProperties(Model model, Resource resource) {
-		resource
+		representation.add(new Node[] { subject, RDF.TYPE, NIREST.User });
 
-				.addProperty(NIREST.centerOfMass, centerOfMass.createResource(model))
+		BNode centerOfMassBlankNode = new BNode(UUID.randomUUID().toString());
+		representation.add(new Node[] { subject, NIREST.centerOfMass, centerOfMassBlankNode });
+		representation.addAll(centerOfMass.getRepresentation(centerOfMassBlankNode));
 
-				.addProperty(NIREST.skeleton, skeleton.createResource(model));
+		BNode skeletonBlankNode = new BNode(UUID.randomUUID().toString());
+		representation.add(new Node[] { subject, NIREST.skeleton, skeletonBlankNode });
+		representation.addAll(skeleton.getRepresentation(skeletonBlankNode));
 
-		return resource;
+		return representation;
 
 	}
 

@@ -1,17 +1,20 @@
 package net.fekepp.nirest.model.joints;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.semanticweb.yars.nx.BNode;
+import org.semanticweb.yars.nx.Literal;
+import org.semanticweb.yars.nx.Node;
+import org.semanticweb.yars.nx.Resource;
+import org.semanticweb.yars.nx.namespace.RDF;
+import org.semanticweb.yars.nx.namespace.XSD;
 
 import net.fekepp.nirest.model.Coordinate3D;
 import net.fekepp.nirest.vocab.NIREST;
 
-@XmlRootElement
 public class Joint {
 
 	protected Resource jointResource = NIREST.Joint;
@@ -19,33 +22,58 @@ public class Joint {
 	private float positionConfidence;
 	private Coordinate3D coordinate;
 
-	public Model createDefaultModel() {
+	// public Model createDefaultModel() {
+	//
+	// final String nsXMLSchema = "http://www.w3.org/2001/XMLSchema#";
+	// final String nsNIREST = NIREST.getURI();
+	//
+	// Model model = ModelFactory.createDefaultModel();
+	//
+	// model.setNsPrefix("nirest", nsNIREST);
+	// model.setNsPrefix("xsd", nsXMLSchema);
+	//
+	// createResource(model);
+	//
+	// return model;
+	//
+	// }
 
-		final String nsXMLSchema = "http://www.w3.org/2001/XMLSchema#";
-		final String nsNIREST = NIREST.getURI();
+	// public Resource createResource(Model model) {
+	//
+	// Resource resource = model.createResource(jointResource)
+	//
+	// .addProperty(NIREST.orientationConfidence,
+	// model.createTypedLiteral(orientationConfidence))
+	//
+	// .addProperty(NIREST.positionConfidence,
+	// model.createTypedLiteral(positionConfidence))
+	//
+	// .addProperty(NIREST.coordinate, coordinate.createResource(model));
+	//
+	// return resource;
+	//
+	// }
 
-		Model model = ModelFactory.createDefaultModel();
+	public Set<Node[]> getRepresentation(Node subject) {
 
-		model.setNsPrefix("nirest", nsNIREST);
-		model.setNsPrefix("xsd", nsXMLSchema);
+		if (subject == null) {
+			subject = new Resource("");
+		}
 
-		createResource(model);
+		BNode coordinateBlankNode = new BNode(UUID.randomUUID().toString());
 
-		return model;
+		Set<Node[]> representation = new HashSet<Node[]>();
 
-	}
+		representation.add(new Node[] { subject, RDF.TYPE, jointResource });
+		representation.add(new Node[] { subject, NIREST.orientationConfidence,
+				new Literal(String.valueOf(orientationConfidence)) });
+		representation.add(new Node[] { subject, NIREST.positionConfidence,
+				new Literal(String.valueOf(positionConfidence), XSD.FLOAT) });
+		representation.add(new Node[] { subject, NIREST.coordinate, coordinateBlankNode });
 
-	public Resource createResource(Model model) {
+		representation.addAll(coordinate.getRepresentation(coordinateBlankNode));
 
-		Resource resource = model.createResource(jointResource)
-
-				.addProperty(NIREST.orientationConfidence, model.createTypedLiteral(orientationConfidence))
-
-				.addProperty(NIREST.positionConfidence, model.createTypedLiteral(positionConfidence))
-
-				.addProperty(NIREST.coordinate, coordinate.createResource(model));
-
-		return resource;
+		return representation;
 
 	}
 
