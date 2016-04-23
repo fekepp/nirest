@@ -15,6 +15,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.Resource;
+import org.semanticweb.yars.nx.namespace.LDP;
+import org.semanticweb.yars.nx.namespace.RDF;
 
 import com.github.benmanes.caffeine.cache.Cache;
 
@@ -33,6 +35,38 @@ public class UserServlet {
 
 	@Context
 	UriInfo uriInfo;
+
+	@GET
+	public Response getRepresentation() {
+
+		// Get request URI which always has a trailing slash
+		String uri = uriInfo.getRequestUri().toString();
+		if (!uri.endsWith("/")) {
+			uri += "/";
+		}
+
+		// Representation to be returned
+		Set<Node[]> representation = new HashSet<Node[]>();
+
+		// URI of the requested resource
+		Resource identifierResource = new Resource(uri);
+
+		// Resource is a LDP Container
+		representation.add(new Node[] { identifierResource, RDF.TYPE, LDP.CONTAINER });
+
+		// Resource is a LDP Basic Container
+		representation.add(new Node[] { identifierResource, RDF.TYPE, LDP.BASIC_CONTAINER });
+
+		// Resource contains user sub-resources
+		for (String user : users.asMap().keySet()) {
+			representation.add(new Node[] { identifierResource, LDP.CONTAINS, new Resource(uri + user) });
+		}
+
+		// Return representation
+		return Response.ok(new GenericEntity<Iterable<Node[]>>(representation) {
+		}).build();
+
+	}
 
 	@GET
 	@Path("{identifier}")

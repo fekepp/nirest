@@ -1,44 +1,62 @@
 package net.fekepp.nirest.api.servlets;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.semanticweb.yars.nx.Node;
+import org.semanticweb.yars.nx.Resource;
+import org.semanticweb.yars.nx.namespace.LDP;
+import org.semanticweb.yars.nx.namespace.RDF;
 
 /**
  * @author "Felix Leif Keppmann"
  */
 @Path("/")
+@Produces("text/turtle")
 public class IndexServlet {
 
+	@Context
+	UriInfo uriInfo;
+
 	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public Response html() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(""
+	public Response getRepresentation() {
 
-				+ "<html>"
+		// Get request URI which always has a trailing slash
+		String uri = uriInfo.getRequestUri().toString();
+		if (!uri.endsWith("/")) {
+			uri += "/";
+		}
 
-				+ "\n\t<head>\n\t\t<title>Natural Interaction via REST (NIREST)</title>\n\t</head>"
+		// Representation to be returned
+		Set<Node[]> representation = new HashSet<Node[]>();
 
-				+ "\n\t<body>"
+		// URI of the requested resource
+		Resource identifierResource = new Resource(uri);
 
-				+ "\n\t\t<h1>Natural Interaction via REST (NIREST)</h1>"
+		// Resource is a LDP Container
+		representation.add(new Node[] { identifierResource, RDF.TYPE, LDP.CONTAINER });
 
-				+ "\n\t\t<h2>Resources:</h2>"
-				
-				+ "\n\t\t<a href=\"device\">device</a>"
+		// Resource is a LDP Basic Container
+		representation.add(new Node[] { identifierResource, RDF.TYPE, LDP.BASIC_CONTAINER });
 
-				+ "\n\t\t<br/>"
+		// Resource contains a device container resource
+		representation.add(new Node[] { identifierResource, LDP.CONTAINS, new Resource(uri + "device") });
 
-				+ "\n\t\t<a href=\"user\">user</a>"
+		// Resource contains a user container resource
+		representation.add(new Node[] { identifierResource, LDP.CONTAINS, new Resource(uri + "user") });
 
-				+ "\n\t</body>"
+		// Return representation
+		return Response.ok(new GenericEntity<Iterable<Node[]>>(representation) {
+		}).build();
 
-				+ "\n</html>");
-
-		return Response.status(200).entity(buffer.toString()).build();
 	}
 
 }
