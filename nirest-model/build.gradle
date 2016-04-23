@@ -32,12 +32,6 @@ dependencies {
 	// External
 	//
 	
-	// Jena
-	compile(group: 'org.apache.jena', name: 'apache-jena-libs', version:'2.11.0') {
-		exclude(module: 'slf4j-log4j12')
-		exclude(module: 'log4j')
-	}
-	
 	
 	//
 	// Local
