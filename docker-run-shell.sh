@@ -5,4 +5,5 @@ docker 	run \
 	-p 8888:8888 \
 	--privileged \
 	-v /dev/bus/usb:/dev/bus/usb \
-	--rm fekepp/nirest /bin/bash
+	--entrypoint=/bin/bash \
+	--rm fekepp/nirest
