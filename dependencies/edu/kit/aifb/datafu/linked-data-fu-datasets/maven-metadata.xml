@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>edu.kit.aifb.datafu</groupId>
+  <artifactId>linked-data-fu-datasets</artifactId>
+  <versioning>
+    <versions>
+      <version>0.9.6-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20160426090439</lastUpdated>
+  </versioning>
+</metadata>

@@ -59,13 +59,13 @@ subprojects {
 	 * Repositories
 	 */
 	repositories {
+	    maven {
+	    	url '../dependencies'
+	    }
 		mavenLocal()
 		mavenCentral()
 		maven {
 			url 'https://jitpack.io'
-		}
-		flatDir {
-			dirs 'libraries'
 		}
 	}
 	
@@ -99,7 +99,7 @@ subprojects {
 		compile 'commons-io:commons-io:2.4'
 		
 		// Caffeine
-		compile 'com.github.ben-manes.caffeine:caffeine:2.2.6'
+		compile 'com.github.ben-manes.caffeine:caffeine:2.+'
 		
 		// NxParser
 		//compile 'org.semanticweb.yars:nxparser-parsers:' + rootProject.nxparser_version
@@ -122,7 +122,7 @@ subprojects {
 			exclude(module: 'log4j')
 			exclude(module: 'slf4j-api')
 		}
-		
+
 		
 		//
 		// Local

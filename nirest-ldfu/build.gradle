@@ -1,0 +1,100 @@
+/*
+ * Plugins
+ */
+plugins {
+	id 'application'
+}
+
+
+
+
+/*
+ * Configuration
+ */
+ 
+// General
+description = 'NIREST LD-Fu'
+
+// Applications plugin
+mainClassName = 'net.fekepp.nirest.ldfu.Main'
+
+jar {
+	manifest {
+		attributes	'Implementation-Title': 'NIREST LD-Fu',
+					'Implementation-Version': version
+	}
+}
+
+
+
+
+/*
+ * Dependencies
+ */
+dependencies {
+	
+	
+	/*
+	 * Compile Dependencies
+	 */
+	
+	//
+	// Internal
+	//
+	
+	// NIREST
+	compile project(':nirest-device')
+	
+	
+	//
+	// External
+	//
+		
+	// Linked Data-Fu		
+	compile 'edu.kit.aifb.datafu:linked-data-fu-common:0.9.+'
+
+	compile 'edu.kit.aifb.datafu:linked-data-fu-datasets:0.9.+'
+	//compile(group: 'edu.kit.aifb.datafu', name: 'linked-data-fu-datasets', version: '0.9.+') {
+	//	exclude(module: 'jetty-server')
+	//	exclude(module: 'test-jetty-servlet')
+	//	exclude(module: 'jersey-container-servlet')
+	//}
+	
+	compile 'edu.kit.aifb.datafu:linked-data-fu-engine:0.9.+'
+	compile 'edu.kit.aifb.datafu:linked-data-fu-evaluators:0.9.+'
+	compile 'edu.kit.aifb.datafu:linked-data-fu-io:0.9.+'
+	compile 'edu.kit.aifb.datafu:linked-data-fu-operators:0.9.+'
+	
+	compile 'edu.kit.aifb.datafu:linked-data-fu-standalone:0.9.+'
+	//compile(group: 'edu.kit.aifb.datafu', name: 'linked-data-fu-standalone', version: '0.9.+') {
+	//	exclude(module: 'jetty-server')
+	//	exclude(module: 'test-jetty-servlet')
+	//	exclude(module: 'jersey-container-servlet')
+	//}
+	
+
+	//
+	// Local
+	//
+	
+	
+	/*
+	 * Test Dependencies
+	 */
+	
+	//
+	// Internal
+	//
+	
+	
+	//
+	// External
+	//
+	
+	
+	//
+	// Local
+	//
+	
+	
+}
