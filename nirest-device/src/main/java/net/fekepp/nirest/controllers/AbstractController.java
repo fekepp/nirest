@@ -5,11 +5,11 @@ package net.fekepp.nirest.controllers;
  */
 public abstract class AbstractController implements Controller {
 
-	private final Object sync = new Object();
+	protected final Object sync = new Object();
 
-	private boolean startup = false;
-	private boolean running = false;
-	private boolean shutdown = false;
+	protected boolean startup = false;
+	protected boolean running = false;
+	protected boolean shutdown = false;
 
 	protected ControllerDelegate delegate;
 
@@ -107,19 +107,7 @@ public abstract class AbstractController implements Controller {
 			delegate.onControllerStarted();
 		}
 
-		try {
-			synchronized (sync) {
-				while (running && !shutdown) {
-					sync.wait();
-				}
-			}
-		}
-
-		catch (InterruptedException e) {
-			if (delegate != null) {
-				delegate.onControllerRunException(e);
-			}
-		}
+		execute();
 
 		try {
 			shutdown();
@@ -158,6 +146,24 @@ public abstract class AbstractController implements Controller {
 	}
 
 	protected abstract void startup() throws Exception;
+
+	protected void execute() {
+
+		try {
+			synchronized (sync) {
+				while (running && !shutdown) {
+					sync.wait();
+				}
+			}
+		}
+
+		catch (InterruptedException e) {
+			if (delegate != null) {
+				delegate.onControllerRunException(e);
+			}
+		}
+
+	}
 
 	protected abstract void shutdown() throws Exception;
 
