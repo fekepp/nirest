@@ -1,4 +1,8 @@
 ### 0.1.0-pre.1 (current)
+- Fixed bash script that start Docker containers with non-default commands
+- Include NIREST LD-Fu API in distribution
+- Removed custom calculations for joint point coordinates
+- Integrated LD-Fu API and NIREST in a subproject
 
 ### 0.1.0-pre.0 (2016-04-23)
 - Replaced Jena by NxParser in model and for serialization
