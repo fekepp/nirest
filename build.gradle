@@ -170,6 +170,7 @@ distributions {
 		
 			into('bin') {
 				from { project(':nirest-device').startScripts.outputs.files }
+				from { project(':nirest-ldfu').startScripts.outputs.files }
 				from { project(':nirest-server').startScripts.outputs.files }
 				fileMode = 0755
 			}
@@ -183,6 +184,10 @@ distributions {
 				// Include JARs of NIREST Model with dependencies
 				from project(':nirest-model').jar
 				from project(':nirest-model').configurations.runtime
+				
+				// Include JARs of NIREST LD-Fu API with dependencies
+				from project(':nirest-ldfu').jar
+				from project(':nirest-ldfu').configurations.runtime
 				
 				// Include JARs of NIREST API with dependencies
 				from project(':nirest-api').jar
