@@ -38,12 +38,11 @@ public class LdfuController extends WebApiController implements EvaluationContro
 
 		Set<Nodes> nodesSet = new HashSet<Nodes>();
 
+		// FIXME Temporary
 		nodesSet.add(new Nodes(new Resource("http://ldfu#test"), new Resource("http://ldfu#counter"),
 				new Literal(String.valueOf(counter++))));
 
 		for (Entry<String, User> user : users.asMap().entrySet()) {
-			nodesSet.add(new Nodes(new Resource("http://ldfu#test"), new Resource("http://nirest#hasUser"),
-					new Resource("http://nirest/user/" + user.getKey())));
 			for (Node[] node : user.getValue().getRepresentation(new Resource("http://nirest/" + user.getKey()))) {
 				nodesSet.add(new Nodes(node));
 			}
