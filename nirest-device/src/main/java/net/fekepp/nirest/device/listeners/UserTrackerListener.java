@@ -101,26 +101,38 @@ public class UserTrackerListener implements NewFrameListener {
 				// Center of Mass > Torso
 				// Center of Mass > Right Hip > Right Knee > Right Foot
 				// Center of Mass > Left Hip > Left Knee > Left Foot
-				net.fekepp.nirest.model.joints.Joint modelJointNeck = null;
-				net.fekepp.nirest.model.joints.Joint modelJointHead = null;
-
-				net.fekepp.nirest.model.joints.Joint modelJointRightShoulder = null;
-				net.fekepp.nirest.model.joints.Joint modelJointRightElbow = null;
-				net.fekepp.nirest.model.joints.Joint modelJointRightHand = null;
-
-				net.fekepp.nirest.model.joints.Joint modelJointLeftShoulder = null;
-				net.fekepp.nirest.model.joints.Joint modelJointLeftElbow = null;
-				net.fekepp.nirest.model.joints.Joint modelJointLeftHand = null;
-
-				net.fekepp.nirest.model.joints.Joint modelJointTorso = null;
-
-				net.fekepp.nirest.model.joints.Joint modelJointRightHip = null;
-				net.fekepp.nirest.model.joints.Joint modelJointRightKnee = null;
-				net.fekepp.nirest.model.joints.Joint modelJointRightFoot = null;
-
-				net.fekepp.nirest.model.joints.Joint modelJointLeftHip = null;
-				net.fekepp.nirest.model.joints.Joint modelJointLeftKnee = null;
-				net.fekepp.nirest.model.joints.Joint modelJointLeftFoot = null;
+				// net.fekepp.nirest.model.joints.Joint modelJointNeck = null;
+				// net.fekepp.nirest.model.joints.Joint modelJointHead = null;
+				//
+				// net.fekepp.nirest.model.joints.Joint modelJointRightShoulder
+				// = null;
+				// net.fekepp.nirest.model.joints.Joint modelJointRightElbow =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointRightHand =
+				// null;
+				//
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftShoulder =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftElbow =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftHand =
+				// null;
+				//
+				// net.fekepp.nirest.model.joints.Joint modelJointTorso = null;
+				//
+				// net.fekepp.nirest.model.joints.Joint modelJointRightHip =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointRightKnee =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointRightFoot =
+				// null;
+				//
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftHip =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftKnee =
+				// null;
+				// net.fekepp.nirest.model.joints.Joint modelJointLeftFoot =
+				// null;
 
 				for (JointType jointType : JointType.values()) {
 
@@ -139,77 +151,77 @@ public class UserTrackerListener implements NewFrameListener {
 					switch (jointType.name()) {
 					case "HEAD":
 						modelJoint = new net.fekepp.nirest.model.joints.Head();
-						modelJointHead = modelJoint;
+						// modelJointHead = modelJoint;
 						break;
 
 					case "NECK":
 						modelJoint = new net.fekepp.nirest.model.joints.Neck();
-						modelJointNeck = modelJoint;
+						// modelJointNeck = modelJoint;
 						break;
 
 					case "LEFT_SHOULDER":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftShoulder();
-						modelJointLeftShoulder = modelJoint;
+						// modelJointLeftShoulder = modelJoint;
 						break;
 
 					case "RIGHT_SHOULDER":
 						modelJoint = new net.fekepp.nirest.model.joints.RightShoulder();
-						modelJointRightShoulder = modelJoint;
+						// modelJointRightShoulder = modelJoint;
 						break;
 
 					case "LEFT_ELBOW":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftElbow();
-						modelJointLeftElbow = modelJoint;
+						// modelJointLeftElbow = modelJoint;
 						break;
 
 					case "RIGHT_ELBOW":
 						modelJoint = new net.fekepp.nirest.model.joints.RightElbow();
-						modelJointRightElbow = modelJoint;
+						// modelJointRightElbow = modelJoint;
 						break;
 
 					case "LEFT_HAND":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftHand();
-						modelJointLeftHand = modelJoint;
+						// modelJointLeftHand = modelJoint;
 						break;
 
 					case "RIGHT_HAND":
 						modelJoint = new net.fekepp.nirest.model.joints.RightHand();
-						modelJointRightHand = modelJoint;
+						// modelJointRightHand = modelJoint;
 						break;
 
 					case "TORSO":
 						modelJoint = new net.fekepp.nirest.model.joints.Torso();
-						modelJointTorso = modelJoint;
+						// modelJointTorso = modelJoint;
 						break;
 
 					case "LEFT_HIP":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftHip();
-						modelJointLeftHip = modelJoint;
+						// modelJointLeftHip = modelJoint;
 						break;
 
 					case "RIGHT_HIP":
 						modelJoint = new net.fekepp.nirest.model.joints.RightHip();
-						modelJointRightHip = modelJoint;
+						// modelJointRightHip = modelJoint;
 						break;
 
 					case "LEFT_KNEE":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftKnee();
-						modelJointLeftKnee = modelJoint;
+						// modelJointLeftKnee = modelJoint;
 						break;
 
 					case "RIGHT_KNEE":
 						modelJoint = new net.fekepp.nirest.model.joints.RightKnee();
-						modelJointRightKnee = modelJoint;
+						// modelJointRightKnee = modelJoint;
 						break;
 
 					case "LEFT_FOOT":
 						modelJoint = new net.fekepp.nirest.model.joints.LeftFoot();
-						modelJointLeftFoot = modelJoint;
+						// modelJointLeftFoot = modelJoint;
 						break;
 
 					case "RIGHT_FOOT":
 						modelJoint = new net.fekepp.nirest.model.joints.RightFoot();
-						modelJointRightFoot = modelJoint;
+						// modelJointRightFoot = modelJoint;
 						break;
 
 					}
@@ -222,144 +234,160 @@ public class UserTrackerListener implements NewFrameListener {
 
 				}
 
-				// Center of Mass > Neck > Head
-				modelJointHead.getCoordinate()
-						.setX(((modelJointNeck.getCoordinate().getX() - modelJointHead.getCoordinate().getX()) / 100));
-				modelJointHead.getCoordinate().setY(
-						((modelJointNeck.getCoordinate().getY() - modelJointHead.getCoordinate().getY()) / 100) * -1);
-				modelJointHead.getCoordinate().setZ(
-						((modelJointNeck.getCoordinate().getZ() - modelJointHead.getCoordinate().getZ()) / 100) * -1);
-
-				modelJointNeck.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointNeck.getCoordinate().getX()) / 100));
-				modelJointNeck.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointNeck.getCoordinate().getY()) / 100) * -1);
-				modelJointNeck.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointNeck.getCoordinate().getZ()) / 100) * -1);
-
-				// Center of Mass > Right Shoulder > Right Elbow > Right Hand
-				modelJointRightHand.getCoordinate().setX(
-						((modelJointRightElbow.getCoordinate().getX() - modelJointRightHand.getCoordinate().getX())
-								/ 100));
-				modelJointRightHand.getCoordinate().setY(
-						((modelJointRightElbow.getCoordinate().getY() - modelJointRightHand.getCoordinate().getY())
-								/ 100) * -1);
-				modelJointRightHand.getCoordinate().setZ(
-						((modelJointRightElbow.getCoordinate().getZ() - modelJointRightHand.getCoordinate().getZ())
-								/ 100) * -1);
-
-				modelJointRightElbow.getCoordinate().setX(
-						((modelJointRightShoulder.getCoordinate().getX() - modelJointRightElbow.getCoordinate().getX())
-								/ 100));
-				modelJointRightElbow.getCoordinate().setY(
-						((modelJointRightShoulder.getCoordinate().getY() - modelJointRightElbow.getCoordinate().getY())
-								/ 100) * -1);
-				modelJointRightElbow.getCoordinate().setZ(
-						((modelJointRightShoulder.getCoordinate().getZ() - modelJointRightElbow.getCoordinate().getZ())
-								/ 100) * -1);
-
-				modelJointRightShoulder.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointRightShoulder.getCoordinate().getX()) / 100));
-				modelJointRightShoulder.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointRightShoulder.getCoordinate().getY()) / 100) * -1);
-				modelJointRightShoulder.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointRightShoulder.getCoordinate().getZ()) / 100) * -1);
-
-				// Center of Mass > Left Shoulder > Left Elbow > Left Hand
-				modelJointLeftHand.getCoordinate()
-						.setX(((modelJointLeftElbow.getCoordinate().getX() - modelJointLeftHand.getCoordinate().getX())
-								/ 100));
-				modelJointLeftHand.getCoordinate().setY(
-						((modelJointLeftElbow.getCoordinate().getY() - modelJointLeftHand.getCoordinate().getY()) / 100)
-								* -1);
-				modelJointLeftHand.getCoordinate().setZ(
-						((modelJointLeftElbow.getCoordinate().getZ() - modelJointLeftHand.getCoordinate().getZ()) / 100)
-								* -1);
-
-				modelJointLeftElbow.getCoordinate().setX(
-						((modelJointLeftShoulder.getCoordinate().getX() - modelJointLeftElbow.getCoordinate().getX())
-								/ 100));
-				modelJointLeftElbow.getCoordinate().setY(
-						((modelJointLeftShoulder.getCoordinate().getY() - modelJointLeftElbow.getCoordinate().getY())
-								/ 100) * -1);
-				modelJointLeftElbow.getCoordinate().setZ(
-						((modelJointLeftShoulder.getCoordinate().getZ() - modelJointLeftElbow.getCoordinate().getZ())
-								/ 100) * -1);
-
-				modelJointLeftShoulder.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointLeftShoulder.getCoordinate().getX()) / 100));
-				modelJointLeftShoulder.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointLeftShoulder.getCoordinate().getY()) / 100) * -1);
-				modelJointLeftShoulder.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointLeftShoulder.getCoordinate().getZ()) / 100) * -1);
-
-				// Center of Mass > Torso
-				modelJointTorso.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointTorso.getCoordinate().getX()) / 100));
-				modelJointTorso.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointTorso.getCoordinate().getY()) / 100) * -1);
-				modelJointTorso.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointTorso.getCoordinate().getZ()) / 100) * -1);
-
-				// Center of Mass > Right Hip > Right Knee > Right Foot
-				modelJointRightFoot.getCoordinate()
-						.setX(((modelJointRightKnee.getCoordinate().getX() - modelJointRightFoot.getCoordinate().getX())
-								/ 100));
-				modelJointRightFoot.getCoordinate()
-						.setY(((modelJointRightKnee.getCoordinate().getY() - modelJointRightFoot.getCoordinate().getY())
-								/ 100) * -1);
-				modelJointRightFoot.getCoordinate()
-						.setZ(((modelJointRightKnee.getCoordinate().getZ() - modelJointRightFoot.getCoordinate().getZ())
-								/ 100) * -1);
-
-				modelJointRightKnee.getCoordinate()
-						.setX(((modelJointRightHip.getCoordinate().getX() - modelJointRightKnee.getCoordinate().getX())
-								/ 100));
-				modelJointRightKnee.getCoordinate().setY(
-						((modelJointRightHip.getCoordinate().getY() - modelJointRightKnee.getCoordinate().getY()) / 100)
-								* -1);
-				modelJointRightKnee.getCoordinate().setZ(
-						((modelJointRightHip.getCoordinate().getZ() - modelJointRightKnee.getCoordinate().getZ()) / 100)
-								* -1);
-
-				modelJointRightHip.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointRightHip.getCoordinate().getX()) / 100));
-				modelJointRightHip.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointRightHip.getCoordinate().getY()) / 100) * -1);
-				modelJointRightHip.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointRightHip.getCoordinate().getZ()) / 100) * -1);
-
-				// Center of Mass > Left Hip > Left Knee > Left Foot
-				modelJointLeftFoot.getCoordinate()
-						.setX(((modelJointLeftKnee.getCoordinate().getX() - modelJointLeftFoot.getCoordinate().getX())
-								/ 100));
-				modelJointLeftFoot.getCoordinate().setY(
-						((modelJointLeftKnee.getCoordinate().getY() - modelJointLeftFoot.getCoordinate().getY()) / 100)
-								* -1);
-				modelJointLeftFoot.getCoordinate().setZ(
-						((modelJointLeftKnee.getCoordinate().getZ() - modelJointLeftFoot.getCoordinate().getZ()) / 100)
-								* -1);
-
-				modelJointLeftKnee.getCoordinate().setX(
-						((modelJointLeftHip.getCoordinate().getX() - modelJointLeftKnee.getCoordinate().getX()) / 100));
-				modelJointLeftKnee.getCoordinate().setY(
-						((modelJointLeftHip.getCoordinate().getY() - modelJointLeftKnee.getCoordinate().getY()) / 100)
-								* -1);
-				modelJointLeftKnee.getCoordinate().setZ(
-						((modelJointLeftHip.getCoordinate().getZ() - modelJointLeftKnee.getCoordinate().getZ()) / 100)
-								* -1);
-
-				modelJointLeftHip.getCoordinate()
-						.setX(((modelCenterOfMass.getX() - modelJointLeftHip.getCoordinate().getX()) / 100));
-				modelJointLeftHip.getCoordinate()
-						.setY(((modelCenterOfMass.getY() - modelJointLeftHip.getCoordinate().getY()) / 100) * -1);
-				modelJointLeftHip.getCoordinate()
-						.setZ(((modelCenterOfMass.getZ() - modelJointLeftHip.getCoordinate().getZ()) / 100) * -1);
+				// // Center of Mass > Neck > Head
+				// modelJointHead.getCoordinate()
+				// .setX(modelJointNeck.getCoordinate().getX() -
+				// modelJointHead.getCoordinate().getX());
+				// modelJointHead.getCoordinate()
+				// .setY(modelJointNeck.getCoordinate().getY() -
+				// modelJointHead.getCoordinate().getY());
+				// modelJointHead.getCoordinate()
+				// .setZ(modelJointNeck.getCoordinate().getZ() -
+				// modelJointHead.getCoordinate().getZ());
+				//
+				// modelJointNeck.getCoordinate().setX(modelCenterOfMass.getX()
+				// - modelJointNeck.getCoordinate().getX());
+				// modelJointNeck.getCoordinate().setY(modelCenterOfMass.getY()
+				// - modelJointNeck.getCoordinate().getY());
+				// modelJointNeck.getCoordinate().setZ(modelCenterOfMass.getZ()
+				// - modelJointNeck.getCoordinate().getZ());
+				//
+				// // Center of Mass > Right Shoulder > Right Elbow > Right Hand
+				// modelJointRightHand.getCoordinate()
+				// .setX(modelJointRightElbow.getCoordinate().getX() -
+				// modelJointRightHand.getCoordinate().getX());
+				// modelJointRightHand.getCoordinate()
+				// .setY(modelJointRightElbow.getCoordinate().getY() -
+				// modelJointRightHand.getCoordinate().getY());
+				// modelJointRightHand.getCoordinate()
+				// .setZ(modelJointRightElbow.getCoordinate().getZ() -
+				// modelJointRightHand.getCoordinate().getZ());
+				//
+				// modelJointRightElbow.getCoordinate().setX(
+				// modelJointRightShoulder.getCoordinate().getX() -
+				// modelJointRightElbow.getCoordinate().getX());
+				// modelJointRightElbow.getCoordinate().setY(
+				// modelJointRightShoulder.getCoordinate().getY() -
+				// modelJointRightElbow.getCoordinate().getY());
+				// modelJointRightElbow.getCoordinate().setZ(
+				// modelJointRightShoulder.getCoordinate().getZ() -
+				// modelJointRightElbow.getCoordinate().getZ());
+				//
+				// modelJointRightShoulder.getCoordinate()
+				// .setX((modelCenterOfMass.getX() -
+				// modelJointRightShoulder.getCoordinate().getX()));
+				// modelJointRightShoulder.getCoordinate()
+				// .setY((modelCenterOfMass.getY() -
+				// modelJointRightShoulder.getCoordinate().getY()) * -1);
+				// modelJointRightShoulder.getCoordinate()
+				// .setZ((modelCenterOfMass.getZ() -
+				// modelJointRightShoulder.getCoordinate().getZ()) * -1);
+				//
+				// // Center of Mass > Left Shoulder > Left Elbow > Left Hand
+				// modelJointLeftHand.getCoordinate()
+				// .setX(modelJointLeftElbow.getCoordinate().getX() -
+				// modelJointLeftHand.getCoordinate().getX());
+				// modelJointLeftHand.getCoordinate()
+				// .setY(modelJointLeftElbow.getCoordinate().getY() -
+				// modelJointLeftHand.getCoordinate().getY());
+				// modelJointLeftHand.getCoordinate()
+				// .setZ(modelJointLeftElbow.getCoordinate().getZ() -
+				// modelJointLeftHand.getCoordinate().getZ());
+				//
+				// modelJointLeftElbow.getCoordinate().setX(
+				// modelJointLeftShoulder.getCoordinate().getX() -
+				// modelJointLeftElbow.getCoordinate().getX());
+				// modelJointLeftElbow.getCoordinate().setY(
+				// modelJointLeftShoulder.getCoordinate().getY() -
+				// modelJointLeftElbow.getCoordinate().getY());
+				// modelJointLeftElbow.getCoordinate().setZ(
+				// modelJointLeftShoulder.getCoordinate().getZ() -
+				// modelJointLeftElbow.getCoordinate().getZ());
+				//
+				// modelJointLeftShoulder.getCoordinate()
+				// .setX(modelCenterOfMass.getX() -
+				// modelJointLeftShoulder.getCoordinate().getX());
+				// modelJointLeftShoulder.getCoordinate()
+				// .setY(modelCenterOfMass.getY() -
+				// modelJointLeftShoulder.getCoordinate().getY());
+				// modelJointLeftShoulder.getCoordinate()
+				// .setZ(modelCenterOfMass.getZ() -
+				// modelJointLeftShoulder.getCoordinate().getZ());
+				//
+				// // Center of Mass > Torso
+				// modelJointTorso.getCoordinate().setX(modelCenterOfMass.getX()
+				// - modelJointTorso.getCoordinate().getX());
+				// modelJointTorso.getCoordinate().setY(modelCenterOfMass.getY()
+				// - modelJointTorso.getCoordinate().getY());
+				// modelJointTorso.getCoordinate().setZ(modelCenterOfMass.getZ()
+				// - modelJointTorso.getCoordinate().getZ());
+				//
+				// // Center of Mass > Right Hip > Right Knee > Right Foot
+				// modelJointRightFoot.getCoordinate()
+				// .setX(modelJointRightKnee.getCoordinate().getX() -
+				// modelJointRightFoot.getCoordinate().getX());
+				// modelJointRightFoot.getCoordinate()
+				// .setY(modelJointRightKnee.getCoordinate().getY() -
+				// modelJointRightFoot.getCoordinate().getY());
+				// modelJointRightFoot.getCoordinate()
+				// .setZ(modelJointRightKnee.getCoordinate().getZ() -
+				// modelJointRightFoot.getCoordinate().getZ());
+				//
+				// modelJointRightKnee.getCoordinate()
+				// .setX(modelJointRightHip.getCoordinate().getX() -
+				// modelJointRightKnee.getCoordinate().getX());
+				// modelJointRightKnee.getCoordinate()
+				// .setY(modelJointRightHip.getCoordinate().getY() -
+				// modelJointRightKnee.getCoordinate().getY());
+				// modelJointRightKnee.getCoordinate()
+				// .setZ(modelJointRightHip.getCoordinate().getZ() -
+				// modelJointRightKnee.getCoordinate().getZ());
+				//
+				// modelJointRightHip.getCoordinate()
+				// .setX(modelCenterOfMass.getX() -
+				// modelJointRightHip.getCoordinate().getX());
+				// modelJointRightHip.getCoordinate()
+				// .setY(modelCenterOfMass.getY() -
+				// modelJointRightHip.getCoordinate().getY());
+				// modelJointRightHip.getCoordinate()
+				// .setZ(modelCenterOfMass.getZ() -
+				// modelJointRightHip.getCoordinate().getZ());
+				//
+				// // Center of Mass > Left Hip > Left Knee > Left Foot
+				// modelJointLeftFoot.getCoordinate()
+				// .setX(modelJointLeftKnee.getCoordinate().getX() -
+				// modelJointLeftFoot.getCoordinate().getX());
+				// modelJointLeftFoot.getCoordinate()
+				// .setY(modelJointLeftKnee.getCoordinate().getY() -
+				// modelJointLeftFoot.getCoordinate().getY());
+				// modelJointLeftFoot.getCoordinate()
+				// .setZ(modelJointLeftKnee.getCoordinate().getZ() -
+				// modelJointLeftFoot.getCoordinate().getZ());
+				//
+				// modelJointLeftKnee.getCoordinate()
+				// .setX(modelJointLeftHip.getCoordinate().getX() -
+				// modelJointLeftKnee.getCoordinate().getX());
+				// modelJointLeftKnee.getCoordinate()
+				// .setY(modelJointLeftHip.getCoordinate().getY() -
+				// modelJointLeftKnee.getCoordinate().getY());
+				// modelJointLeftKnee.getCoordinate()
+				// .setZ(modelJointLeftHip.getCoordinate().getZ() -
+				// modelJointLeftKnee.getCoordinate().getZ());
+				//
+				// modelJointLeftHip.getCoordinate()
+				// .setX(modelCenterOfMass.getX() -
+				// modelJointLeftHip.getCoordinate().getX());
+				// modelJointLeftHip.getCoordinate()
+				// .setY(modelCenterOfMass.getY() -
+				// modelJointLeftHip.getCoordinate().getY());
+				// modelJointLeftHip.getCoordinate()
+				// .setZ(modelCenterOfMass.getZ() -
+				// modelJointLeftHip.getCoordinate().getZ());
 
 				// Center of Mass
-				modelCenterOfMass.setX((modelCenterOfMass.getX() / 100) * -6);
-				modelCenterOfMass.setY(modelCenterOfMass.getY() / 100);
-				modelCenterOfMass.setZ((modelCenterOfMass.getZ() / 100) * 6);
+				modelCenterOfMass.setX(modelCenterOfMass.getX());
+				modelCenterOfMass.setY(modelCenterOfMass.getY());
+				modelCenterOfMass.setZ(modelCenterOfMass.getZ());
 
 			}
 
