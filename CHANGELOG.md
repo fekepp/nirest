@@ -1,3 +1,5 @@
+### 0.1.0-pre.2 (current)
+
 ### 0.1.0-pre.1 (2016-04-27)
 - Fixed bash script that start Docker containers with non-default commands
 - Include NIREST LD-Fu API in distribution
