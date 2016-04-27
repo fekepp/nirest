@@ -66,7 +66,7 @@ public class Joint {
 
 		representation.add(new Node[] { subject, RDF.TYPE, jointResource });
 		representation.add(new Node[] { subject, NIREST.orientationConfidence,
-				new Literal(String.valueOf(orientationConfidence)) });
+				new Literal(String.valueOf(orientationConfidence), XSD.FLOAT) });
 		representation.add(new Node[] { subject, NIREST.positionConfidence,
 				new Literal(String.valueOf(positionConfidence), XSD.FLOAT) });
 		representation.add(new Node[] { subject, NIREST.coordinate, coordinateBlankNode });
