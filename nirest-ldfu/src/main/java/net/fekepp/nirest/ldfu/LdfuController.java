@@ -43,7 +43,7 @@ public class LdfuController extends WebApiController implements EvaluationContro
 				new Literal(String.valueOf(counter++))));
 
 		for (Entry<String, User> user : users.asMap().entrySet()) {
-			for (Node[] node : user.getValue().getRepresentation(new Resource("http://nirest/" + user.getKey()))) {
+			for (Node[] node : user.getValue().getRepresentation(new Resource("http://nirest/user/" + user.getKey()))) {
 				nodesSet.add(new Nodes(node));
 			}
 		}
