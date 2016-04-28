@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.semanticweb.yars.nx.Literal;
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.Nodes;
 import org.semanticweb.yars.nx.Resource;
@@ -22,8 +21,6 @@ public class LdfuController extends WebApiController implements EvaluationContro
 
 	private Cache<String, User> users;
 
-	private int counter;
-
 	public LdfuController() {
 		setEvaluationControllerDelegate(this);
 
@@ -37,10 +34,6 @@ public class LdfuController extends WebApiController implements EvaluationContro
 	public Set<Nodes> getNodes() {
 
 		Set<Nodes> nodesSet = new HashSet<Nodes>();
-
-		// FIXME Temporary
-		nodesSet.add(new Nodes(new Resource("http://ldfu#test"), new Resource("http://ldfu#counter"),
-				new Literal(String.valueOf(counter++))));
 
 		for (Entry<String, User> user : users.asMap().entrySet()) {
 			for (Node[] node : user.getValue().getRepresentation(new Resource("nirest://user/" + user.getKey()))) {
