@@ -4,6 +4,7 @@ NIREST uses the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreene
 This application provides body tracking for Kinect v1 as RDF read-only REST resources.
 
 ## Requirements
+* Linux
 * Connected Microsoft Kinect v1
 * Java 8
 * Docker (optional for running the NIREST Docker container)
