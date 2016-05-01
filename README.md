@@ -32,7 +32,7 @@ Run the docker image and start the NIREST server, which will be available at "ht
 
     ./docker-run-server.sh
 
-Run the docker image and start a LD-Fu API.
+Run the docker image and start NIREST with integrated LD-Fu API.
 
     ./docker-run-ldfu.sh
 
@@ -49,3 +49,7 @@ For manual local build of the docker image, clone the GitHub repository of NIRES
 Run NIREST server directly via Gradle using pre-compiled OpenNI2-FreenectDriver.
 
     ./gradle-run-server.sh
+    
+Run NIREST with integrated LD-Fu API directly via Gradle using pre-compiled OpenNI2-FreenectDriver.
+
+    ./gradle-run-ldfu.sh
