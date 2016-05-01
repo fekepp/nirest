@@ -1,0 +1,10 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ldfu: <http://ldfu#>
+PREFIX nirest: <http://vocab.arvida.de/2014/02/nirest/vocab#>
+PREFIX scenario: <http://scenario#>
+
+CONSTRUCT {
+	?point scenario:shutdown "true" .
+} WHERE {
+	?point scenario:alarm "true" .
+}

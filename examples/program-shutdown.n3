@@ -1,0 +1,20 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix http: <http://www.w3.org/2011/http#> .
+@prefix http-m: <http://www.w3.org/2011/http-methods#> .
+@prefix qrl: <http://www.aifb.kit.edu/project/ld-retriever/qrl#> .
+@prefix math: <http://www.w3.org/2000/10/swap/math#> .
+@prefix ldfu: <http://ldfu#> .
+@prefix nirest: <http://vocab.arvida.de/2014/02/nirest/vocab#> .
+@prefix scenario: <http://scenario#> .
+
+{
+	?point scenario:alarm "true" .
+} => {
+	[] http:mthd
+			http-m:PUT;
+			http:requestURI <http://localhost:8889>;
+			http:body {
+				<>
+					scenario:shutdown "true" .
+			} .
+} .

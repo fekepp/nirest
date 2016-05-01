@@ -1,0 +1,77 @@
+#!/bin/sh
+
+options=""
+options="-v -sS"
+
+host="127.0.0.1"
+port=8888
+
+
+
+
+# INSTANCES
+
+echo "__________________________________________________"
+echo "PUT > Content-Type: text/turtle > http://$host:$port/scenario"
+curl $options -X "PUT" -H "Content-Type: text/turtle" http://$host:$port/scenario --data-binary @config-scenario.ttl
+
+#echo "__________________________________________________"
+#echo "GET > Accept: text/turtle > http://$host:$port/scenario"
+#curl $options -X "GET" -H "Accept: text/turtle" http://$host:$port/scenario
+
+
+
+
+# PROGRAMS
+
+#echo "__________________________________________________"
+#echo "PUT > Content-Type: text/n3 > http://$host:$port/scenario/p/distance"
+#curl $options -X "PUT" -H "Content-Type: text/n3" http://$host:$port/scenario/p/distance --data-binary @program-distance.n3
+
+#echo "__________________________________________________"
+#echo "GET > Accept: text/n3 > http://$host:$port/scenario/p/distance"
+#curl $options -X "GET" -H "Accept: text/n3" http://$host:$port/scenario/p/distance
+
+
+echo "__________________________________________________"
+echo "PUT > Content-Type: text/n3 > http://$host:$port/scenario/p/alarm"
+curl $options -X "PUT" -H "Content-Type: text/n3" http://$host:$port/scenario/p/alarm --data-binary @program-alarm.n3
+
+#echo "__________________________________________________"
+#echo "GET > Accept: text/n3 > http://$host:$port/scenario/p/alarm"
+#curl $options -X "GET" -H "Accept: text/n3" http://$host:$port/scenario/p/alarm
+
+
+#echo "__________________________________________________"
+#echo "PUT > Content-Type: text/n3 > http://$host:$port/scenario/p/shutdown"
+#curl $options -X "PUT" -H "Content-Type: text/n3" http://$host:$port/scenario/p/shutdown --data-binary @program-shutdown.n3
+
+#echo "__________________________________________________"
+#echo "GET > Accept: text/n3 > http://$host:$port/scenario/p/shutdown"
+#curl $options -X "GET" -H "Accept: text/n3" http://$host:$port/scenario/p/shutdown
+
+
+
+
+# RESOURCES
+
+#echo "__________________________________________________"
+#echo "PUT > Content-Type: application/sparql-query > http://$host:$port/scenario/r/spo"
+#curl $options -X "PUT" -H "Content-Type: application/sparql-query" http://$host:$port/scenario/r/spo --data-binary @resource-spo.rq
+
+#echo "__________________________________________________"
+#echo "GET > Accept: application/sparql-query > http://$host:$port/scenario/r/spo"
+#curl $options -X "GET" -H "Accept: application/sparql-query" http://$host:$port/scenario/r/spo
+
+
+echo "__________________________________________________"
+echo "PUT > Content-Type: application/sparql-query > http://$host:$port/scenario/r/shutdown"
+curl $options -X "PUT" -H "Content-Type: application/sparql-query" http://$host:$port/scenario/r/shutdown --data-binary @resource-shutdown.rq
+
+#echo "__________________________________________________"
+#echo "GET > Accept: application/sparql-query > http://$host:$port/scenario/r/alarm"
+#curl $options -X "GET" -H "Accept: application/sparql-query" http://$host:$port/scenario/r/alarm
+
+
+
+echo

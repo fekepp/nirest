@@ -1,0 +1,30 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix qrl: <http://www.aifb.kit.edu/project/ld-retriever/qrl#> .
+@prefix math: <http://www.w3.org/2000/10/swap/math#> .
+@prefix ldfu: <http://ldfu#> .
+@prefix nirest: <http://vocab.arvida.de/2014/02/nirest/vocab#> .
+@prefix scenario: <http://scenario#> .
+
+{
+	?point nirest:coordinate ?coordinate .
+		?coordinate nirest:x ?x ; nirest:y ?y ; nirest:z ?z .
+	(?x "2") math:exponentiation ?x_ex .
+	(?y "2") math:exponentiation ?y_ex .
+	(?z "2") math:exponentiation ?z_ex .
+	(?x_ex ?y_ex ?z_ex) math:sum ?sum .
+	?sum math:sqrt ?square_root .
+#	?square_root math:lessThan "1000.0" .
+} => {
+#	?point scenario:alarm "true" .
+	?point scenario:distance ?square_root .
+} .
+
+# Workaround for bug in implementation
+# Split in two rules to omit exception
+# To be removed as soon as bug is fixed
+{
+	?point scenario:distance ?distance .
+	?distance math:lessThan "1000.0" .
+} => {
+	?point scenario:alarm "true" .
+} .
