@@ -32,6 +32,10 @@ Run the docker image and start the NIREST server, which will be available at "ht
 
     ./docker-run-server.sh
 
+Run the docker image and start a LD-Fu API.
+
+    ./docker-run-ldfu.sh
+
 Run the docker image and start a Bash session for manual intervention.
 
     ./docker-run-shell.sh
