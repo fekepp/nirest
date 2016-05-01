@@ -29,7 +29,7 @@ allprojects {
 	/*
 	 * Configuration
 	 */
-	version = '0.1.0-pre.2'
+	version = '0.1.0-pre.3-SNAPSHOT'
 	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
