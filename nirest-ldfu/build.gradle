@@ -177,3 +177,14 @@ startScripts {
 	}
 	
 }
+
+
+
+
+/*
+ * Custom Tasks
+ */
+task runWithStatistics(type:JavaExec) {
+   main = 'net.fekepp.nirest.ldfu.StatisticsMain'
+   classpath = sourceSets.main.runtimeClasspath
+}
