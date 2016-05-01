@@ -1,7 +1,7 @@
 # Natural Interaction via REST (NIREST)
-NIREST uses the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreenect/tree/master/OpenNI2-FreenectDriver) from [libfreenect](https://github.com/OpenKinect/libfreenect/) of the [OpenKinect Project](http://www.openkinect.org), [OpenNI](http://structure.io/openni), and NiTE.
+NIREST uses the [OpenNI2-FreenectDriver](https://github.com/OpenKinect/libfreenect/tree/master/OpenNI2-FreenectDriver) from [libfreenect](https://github.com/OpenKinect/libfreenect/) of the [OpenKinect Project](http://www.openkinect.org), [OpenNI](http://structure.io/openni), NiTE, and [Linked Data-Fu](http://linked-data-fu.github.io)
 
-This application provides body tracking for Kinect v1 as RDF read-only REST resources.
+This application provides body tracking for Kinect v1 as RDF read-only REST resources or via a Linked Data-Fu API.
 
 ## Requirements
 * Linux
