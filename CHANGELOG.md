@@ -1,4 +1,4 @@
-### 0.1.0-pre.2 (current)
+### 0.1.0-pre.2 (2016-03-01)
 - Updated readme
 - Added runtime measurements
 - Added measurement of LD-Fu runtimes
