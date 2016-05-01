@@ -1,4 +1,8 @@
 ### 0.1.0-pre.2 (current)
+- Updated readme
+- Added runtime measurements
+- Added measurement of LD-Fu runtimes
+- Updated LD-Fu with less logging
 
 ### 0.1.0-pre.1 (2016-04-27)
 - Fixed bash script that start Docker containers with non-default commands
