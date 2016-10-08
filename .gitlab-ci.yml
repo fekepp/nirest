@@ -1,10 +1,3 @@
-openjdk-7-jdk:
-  tags:
-    - docker
-  image: openjdk:7-jdk
-  script:
-    - "./gradlew build"
-
 openjdk-8-jdk:
   tags:
     - docker
