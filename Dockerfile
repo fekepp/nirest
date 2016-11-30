@@ -38,9 +38,9 @@ RUN	cd /root/ \
 	&& mv build/install/nirest /usr/share/ \
 	\
 	&& cd / \
-	&& rm -r /root/.gradle \
-	&& rm -r /usr/src/nirest \
-	&& rm /usr/src/nirest.tar.gz \
+	&& rm -rf /root/.gradle \
+	&& rm -rf /usr/src/nirest \
+	&& rm -f /usr/src/nirest.tar.gz \
 	\
 	&& echo "VERSION=$VERSION" \
 	&& echo "URL=$URL"
