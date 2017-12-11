@@ -52,6 +52,7 @@ dependencies {
 	
 	// Jersey
 	compile 'org.glassfish.jersey.containers:jersey-container-jetty-servlet:2.+'
+	compile 'org.glassfish.jersey.inject:jersey-hk2:2.+'
 	
 	// Jetty (include dependencies of Jersey with newer versions)
 	compile 'org.eclipse.jetty:jetty-webapp:9.+'
